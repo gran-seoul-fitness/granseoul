@@ -222,6 +222,7 @@ let state = {
   introIdx: 0,
   modal: null,
   previewDataUrl: null,
+  photoVerifying: false,
   toast: null,
   stampPop: null, // { title }
 };
@@ -495,6 +496,11 @@ function renderModal() {
             <span style="font-size:12px;color:${COLORS.cream};opacity:0.75;">운동 인증샷을 촬영하거나 선택해주세요.</span>
             <input type="file" accept="image/*" capture="environment" style="display:none;" onchange="handleFileSelect(event)" />
           </label>
+        ` : state.photoVerifying ? `
+          <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+            <img src="${state.previewDataUrl}" style="width:100%;max-height:240px;object-fit:cover;border-radius:16px;opacity:0.5;" />
+            <p style="font-size:12px;color:${COLORS.cream};opacity:0.8;">사진 확인 중...</p>
+          </div>
         ` : `
           <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
             <img src="${state.previewDataUrl}" style="width:100%;max-height:240px;object-fit:cover;border-radius:16px;" />
@@ -582,7 +588,33 @@ async function handleFileSelect(event) {
   const file = event.target.files[0];
   if (!file) return;
   state.previewDataUrl = await compressImage(file, 1000, 0.7);
+  state.photoVerifying = true;
   render();
+
+  const ok = await verifyEquipmentPhoto(state.previewDataUrl);
+  state.photoVerifying = false;
+  if (!ok) {
+    state.previewDataUrl = null;
+    state.toast = "운동기구가 보이는 사진이 아닌 것 같아요. 다시 선택해주세요.";
+    setTimeout(() => { state.toast = null; render(); }, 2500);
+  }
+  render();
+}
+
+/* 사진 속에 운동기구가 보이는지 AI로 확인. 확인 자체가 실패하면(네트워크 오류 등) 막지 않고 통과시킴 */
+async function verifyEquipmentPhoto(dataUrl) {
+  try {
+    const res = await fetch("/api/verify-photo", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ image: dataUrl }),
+    });
+    if (!res.ok) return true;
+    const data = await res.json();
+    return !!data.ok;
+  } catch (e) {
+    return true;
+  }
 }
 
 function confirmStamp() {

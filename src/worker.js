@@ -1,0 +1,63 @@
+const VERIFY_PROMPT =
+  "이 사진에 헬스장 운동기구(러닝머신, 사이클, 벤치프레스, 덤벨, 케이블 머신, 레그프레스 등)나 운동/헬스 관련 장면이 보이나요? 반드시 'YES' 또는 'NO' 한 단어로만 답하세요.";
+
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    if (url.pathname === "/api/verify-photo" && request.method === "POST") {
+      return handleVerifyPhoto(request, env);
+    }
+    return env.ASSETS.fetch(request);
+  },
+};
+
+async function handleVerifyPhoto(request, env) {
+  try {
+    const { image } = await request.json();
+    const match = typeof image === "string" && image.match(/^data:(image\/[a-zA-Z]+);base64,(.+)$/);
+    if (!match) {
+      return jsonResponse({ ok: false, reason: "invalid_image" });
+    }
+    const [, mimeType, base64Data] = match;
+
+    if (!env.GEMINI_API_KEY) {
+      // 키가 아직 설정 안 된 상태에서는 인증 자체를 막지 않음 (기능 도입 전과 동일하게 동작)
+      return jsonResponse({ ok: true, reason: "no_api_key" });
+    }
+
+    const geminiRes = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${env.GEMINI_API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                { text: VERIFY_PROMPT },
+                { inlineData: { mimeType, data: base64Data } },
+              ],
+            },
+          ],
+          generationConfig: { maxOutputTokens: 300 },
+        }),
+      }
+    );
+
+    if (!geminiRes.ok) {
+      return jsonResponse({ ok: true, reason: "api_error_fail_open" });
+    }
+    const data = await geminiRes.json();
+    const text = (data.candidates?.[0]?.content?.parts?.[0]?.text || "").trim().toUpperCase();
+    return jsonResponse({ ok: text.includes("YES") });
+  } catch (e) {
+    // 검증 과정 자체가 실패해도 사용자의 정상적인 인증 흐름을 막지 않음
+    return jsonResponse({ ok: true, reason: "exception_fail_open" });
+  }
+}
+
+function jsonResponse(obj) {
+  return new Response(JSON.stringify(obj), {
+    headers: { "Content-Type": "application/json" },
+  });
+}
