@@ -1,6 +1,8 @@
 const VERIFY_PROMPT =
-  "Does this photo show gym exercise equipment (treadmill, exercise bike, bench press, dumbbells, cable machine, leg press, etc.) " +
-  "or a person exercising? Answer with only one word, YES or NO. Do not add any explanation.";
+  "Look only at the actual physical objects photographed in this image. Does it show REAL gym exercise equipment " +
+  "(an actual treadmill, exercise bike, bench press, dumbbells, cable machine, leg press, etc.) or a person actually " +
+  "exercising? Answer NO if this is a poster, flyer, QR code, sign, screenshot, or any printed or digital material " +
+  "- even if it mentions fitness, health, or a challenge in text. Answer with only one word, YES or NO. Do not add any explanation.";
 
 export default {
   async fetch(request, env) {
@@ -30,7 +32,7 @@ async function handleVerifyPhoto(request, env) {
     const bytes = new Uint8Array(binary.length);
     for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
 
-    const result = await env.AI.run("@cf/llava-hf/llava-1.5-7b-hf", {
+    const result = await env.AI.run("@cf/meta/llama-3.2-11b-vision-instruct", {
       image: Array.from(bytes),
       prompt: VERIFY_PROMPT,
       max_tokens: 12,
