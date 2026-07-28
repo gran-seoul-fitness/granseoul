@@ -493,7 +493,7 @@ function renderModal() {
         ${!state.previewDataUrl ? `
           <label style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:36px 0;border-radius:16px;border:1.5px dashed rgba(244,241,232,0.5);background:rgba(244,241,232,0.06);cursor:pointer;">
             <span style="font-size:26px;">📷</span>
-            <span style="font-size:12px;color:${COLORS.cream};opacity:0.75;">운동 인증샷을 촬영하거나 선택해주세요.</span>
+            <span style="font-size:12px;color:${COLORS.cream};opacity:0.75;">${state.modal.zoneKey === "gx" ? "운동 하신 매트 사진을 찍어 인증샷을 올려주세요." : "운동 하신 기구를 찍어서 인증샷을 올려주세요."}</span>
             <input type="file" accept="image/*" capture="environment" style="display:none;" onchange="handleFileSelect(event)" />
           </label>
         ` : state.photoVerifying ? `
