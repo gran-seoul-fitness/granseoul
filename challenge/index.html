@@ -597,10 +597,6 @@ async function handleFileSelect(event) {
     state.previewDataUrl = null;
     state.toast = "운동기구가 보이는 사진이 아닌 것 같아요. 다시 선택해주세요.";
     setTimeout(() => { state.toast = null; render(); }, 2500);
-  } else {
-    /* 임시 디버그: 통과 사유를 화면에 잠깐 표시 (원인 파악 후 제거 예정) */
-    state.toast = "[디버그] 통과: " + (result.reason || "unknown") + (result.modelText ? " / " + result.modelText : "") + (result.status ? " / http" + result.status : "") + (result.detail ? " / " + result.detail : "");
-    setTimeout(() => { state.toast = null; render(); }, 9000);
   }
   render();
 }
