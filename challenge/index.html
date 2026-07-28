@@ -599,8 +599,8 @@ async function handleFileSelect(event) {
     setTimeout(() => { state.toast = null; render(); }, 2500);
   } else {
     /* 임시 디버그: 통과 사유를 화면에 잠깐 표시 (원인 파악 후 제거 예정) */
-    state.toast = "[디버그] 통과: " + (result.reason || "unknown") + (result.modelText ? " / " + result.modelText : "") + (result.status ? " / http" + result.status : "");
-    setTimeout(() => { state.toast = null; render(); }, 5000);
+    state.toast = "[디버그] 통과: " + (result.reason || "unknown") + (result.modelText ? " / " + result.modelText : "") + (result.status ? " / http" + result.status : "") + (result.detail ? " / " + result.detail : "");
+    setTimeout(() => { state.toast = null; render(); }, 9000);
   }
   render();
 }
