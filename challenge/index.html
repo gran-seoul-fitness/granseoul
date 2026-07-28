@@ -425,7 +425,7 @@ function renderMain() {
     </div>
 
     ${state.modal ? renderModal() : ""}
-    ${state.toast ? `<div style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:10px 20px;border-radius:999px;background:${COLORS.navy};color:${COLORS.cream};font-size:14px;z-index:50;">${state.toast}</div>` : ""}
+    ${state.toast ? `<div style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);max-width:90%;padding:10px 20px;border-radius:16px;background:${COLORS.navy};color:${COLORS.cream};font-size:13px;line-height:1.4;text-align:center;word-break:break-word;z-index:50;">${state.toast}</div>` : ""}
     ${state.stampPop ? renderStampPop() : ""}
     ${doneCount() === TOTAL_QUESTS ? renderComplete() : ""}
   `;
@@ -591,12 +591,16 @@ async function handleFileSelect(event) {
   state.photoVerifying = true;
   render();
 
-  const ok = await verifyEquipmentPhoto(state.previewDataUrl);
+  const result = await verifyEquipmentPhoto(state.previewDataUrl);
   state.photoVerifying = false;
-  if (!ok) {
+  if (!result.ok) {
     state.previewDataUrl = null;
     state.toast = "운동기구가 보이는 사진이 아닌 것 같아요. 다시 선택해주세요.";
     setTimeout(() => { state.toast = null; render(); }, 2500);
+  } else {
+    /* 임시 디버그: 통과 사유를 화면에 잠깐 표시 (원인 파악 후 제거 예정) */
+    state.toast = "[디버그] 통과: " + (result.reason || "unknown") + (result.modelText ? " / " + result.modelText : "") + (result.status ? " / http" + result.status : "");
+    setTimeout(() => { state.toast = null; render(); }, 5000);
   }
   render();
 }
@@ -609,11 +613,11 @@ async function verifyEquipmentPhoto(dataUrl) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ image: dataUrl }),
     });
-    if (!res.ok) return true;
+    if (!res.ok) return { ok: true, reason: "http_error", status: res.status };
     const data = await res.json();
-    return !!data.ok;
+    return data;
   } catch (e) {
-    return true;
+    return { ok: true, reason: "fetch_exception" };
   }
 }
 
