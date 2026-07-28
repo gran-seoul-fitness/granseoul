@@ -32,11 +32,20 @@ async function handleVerifyPhoto(request, env) {
     const bytes = new Uint8Array(binary.length);
     for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
 
-    const result = await env.AI.run("@cf/meta/llama-3.2-11b-vision-instruct", {
-      image: Array.from(bytes),
-      prompt: VERIFY_PROMPT,
-      max_tokens: 12,
-    });
+    const MODEL = "@cf/meta/llama-3.2-11b-vision-instruct";
+    const imageArr = Array.from(bytes);
+    let result;
+    try {
+      result = await env.AI.run(MODEL, { image: imageArr, prompt: VERIFY_PROMPT, max_tokens: 12 });
+    } catch (e) {
+      if (String(e).includes("must submit the prompt 'agree'")) {
+        // Meta 라이선스에 이 계정이 아직 동의 안 한 상태 -> 한 번 자동으로 동의 처리 후 재시도
+        await env.AI.run(MODEL, { prompt: "agree", max_tokens: 5 });
+        result = await env.AI.run(MODEL, { image: imageArr, prompt: VERIFY_PROMPT, max_tokens: 12 });
+      } else {
+        throw e;
+      }
+    }
 
     const text = (result.description || result.response || "").trim().toUpperCase();
     if (!text) {
