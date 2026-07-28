@@ -508,7 +508,6 @@ function renderModal() {
 
 /* 챌린지 중에도 상시 노출되는 리워드 미리보기 - 갖고 싶게 만드는 게 목적 */
 function renderRewardPreview() {
-  const remaining = TOTAL_QUESTS - doneCount();
   const AMENITY_BG = "#171613";
   return `
     <div style="margin:16px 24px 8px;border-radius:18px;overflow:hidden;position:relative;
@@ -519,13 +518,16 @@ function renderRewardPreview() {
         <div style="position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:999px;background:${STAMP_INK};">
           <span style="font-size:9px;letter-spacing:0.15em;color:${COLORS.cream};font-weight:700;">EXCLUSIVE REWARD</span>
         </div>
+        <div style="position:absolute;top:10px;right:10px;padding:4px 10px;border-radius:999px;background:rgba(244,241,232,0.18);backdrop-filter:blur(2px);">
+          <span style="font-size:11px;font-weight:700;color:${COLORS.cream};">${doneCount()} / ${TOTAL_QUESTS}</span>
+        </div>
       </div>
       <div style="padding:6px 18px 20px;">
         <p class="serif" style="font-size:20px;color:${COLORS.cream};font-weight:800;margin-bottom:8px;">리워드 증정</p>
         <p style="font-size:13px;color:${COLORS.cream};opacity:0.75;line-height:1.6;">
           제주의 자연에서 영감을 받은<br>
           해비치만의 시그니처 향을<br>
-          <b style="opacity:1;">${remaining}개</b> 스탬프를 채워 경험해보세요.
+          <b style="opacity:1;">${doneCount()} / ${TOTAL_QUESTS}</b> 채우면 경험할 수 있어요.
         </p>
       </div>
     </div>`;
