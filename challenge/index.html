@@ -114,11 +114,11 @@ const EQUIPMENT_PHOTOS = {
   "back-w3": [EQ_ROWYELLOW, EQ_UGRIPRACK],
   "chest-w2": [EQ_BENCHPRESS, EQ_INCLINEYELLOW, EQ_CHESTPRESSM, EQ_PECTORAL, EQ_SMITHRACK],
   "shoulder-w2": EQ_DUMBBELLRACK,
-  // 월·금 덤벨 코어 + 화·목 파워코어는 매주 공통, 수요일만 홀수 주(매트 필라테스)/짝수 주(요가)로 교차
-  "gx-w0": shuffleArray([EQ_GX_DUMBBELLCORE, EQ_GX_POWERCORE, EQ_GX_MATPILATES]),
-  "gx-w1": shuffleArray([EQ_GX_DUMBBELLCORE, EQ_GX_POWERCORE, EQ_GX_YOGA]),
-  "gx-w2": shuffleArray([EQ_GX_DUMBBELLCORE, EQ_GX_POWERCORE, EQ_GX_MATPILATES]),
-  "gx-w3": shuffleArray([EQ_GX_DUMBBELLCORE, EQ_GX_POWERCORE, EQ_GX_YOGA]),
+  // 월·금 덤벨 트레이닝 + 화·목 파워코어 트레이닝은 매주 공통, 수요일만 홀수 주(요가)/짝수 주(매트 필라테스)로 교차
+  "gx-w0": shuffleArray([EQ_GX_DUMBBELLCORE, EQ_GX_POWERCORE, EQ_GX_YOGA]),
+  "gx-w1": shuffleArray([EQ_GX_DUMBBELLCORE, EQ_GX_POWERCORE, EQ_GX_MATPILATES]),
+  "gx-w2": shuffleArray([EQ_GX_DUMBBELLCORE, EQ_GX_POWERCORE, EQ_GX_YOGA]),
+  "gx-w3": shuffleArray([EQ_GX_DUMBBELLCORE, EQ_GX_POWERCORE, EQ_GX_MATPILATES]),
 };
 
 /* ============================================================
@@ -163,10 +163,10 @@ const QUEST_BANK = {
     { title: "유산소 피크 세션: 싱크로 · 스킬로우 · 일립티컬 로테이션", equipment: "싱크로 · 스킬로우 · 일립티컬 (기구 바꿔가며 30분)", duration: "주 3회 · 30분" },
   ],
   gx: [
-    { title: "G.X 수업 참여: 덤벨 코어 · 파워코어 · 매트 필라테스 중 택1", equipment: "월·금 덤벨 코어 · 화·목 파워코어 · 수 매트 필라테스", duration: "1회" },
-    { title: "G.X 수업 참여: 덤벨 코어 · 파워코어 · 요가 중 택1", equipment: "월·금 덤벨 코어 · 화·목 파워코어 · 수 요가", duration: "1회" },
-    { title: "G.X 수업 참여: 덤벨 코어 · 파워코어 · 매트 필라테스 중 택1", equipment: "월·금 덤벨 코어 · 화·목 파워코어 · 수 매트 필라테스", duration: "1회" },
-    { title: "G.X 수업 참여: 덤벨 코어 · 파워코어 · 요가 중 택1", equipment: "월·금 덤벨 코어 · 화·목 파워코어 · 수 요가 · 리워드 수령", duration: "1회" },
+    { title: "G.X 수업 참여: 덤벨 트레이닝 · 파워코어 트레이닝 · 요가 중 택1", equipment: "월·금 덤벨 트레이닝 · 화·목 파워코어 트레이닝 · 수 요가", duration: "1회" },
+    { title: "G.X 수업 참여: 덤벨 트레이닝 · 파워코어 트레이닝 · 매트 필라테스 중 택1", equipment: "월·금 덤벨 트레이닝 · 화·목 파워코어 트레이닝 · 수 매트 필라테스", duration: "1회" },
+    { title: "G.X 수업 참여: 덤벨 트레이닝 · 파워코어 트레이닝 · 요가 중 택1", equipment: "월·금 덤벨 트레이닝 · 화·목 파워코어 트레이닝 · 수 요가", duration: "1회" },
+    { title: "G.X 수업 참여: 덤벨 트레이닝 · 파워코어 트레이닝 · 매트 필라테스 중 택1", equipment: "월·금 덤벨 트레이닝 · 화·목 파워코어 트레이닝 · 수 매트 필라테스 · 리워드 수령", duration: "1회" },
   ],
   lower: [
     { title: "하체 적응주: 레그익스텐션·컬 + 어덕터/어브덕터", equipment: "레그 익스텐션 · 레그 컬 · 힙 어덕터/어브덕터", duration: "3세트 x 12-15회" },
