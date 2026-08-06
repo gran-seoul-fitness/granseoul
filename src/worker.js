@@ -1,9 +1,11 @@
 const VERIFY_PROMPT =
-  "Look only at the actual physical objects photographed in this image. Does it show REAL gym exercise equipment " +
-  "(an actual treadmill, exercise bike, bench press, dumbbells, cable machine, leg press, etc.), an exercise mat " +
-  "(yoga mat or pilates mat) used for a workout, or a person actually exercising? Answer NO if this is a poster, " +
-  "flyer, QR code, sign, screenshot, or any printed or digital material - even if it mentions fitness, health, or " +
-  "a challenge in text. Answer with only one word, YES or NO. Do not add any explanation.";
+  "Look only at the actual physical objects photographed in this image. Answer YES if ANY of the following is visible: " +
+  "(1) real gym exercise equipment such as a treadmill, exercise bike, bench press, dumbbells, cable machine, or leg press; " +
+  "(2) a yoga mat, pilates mat, or any exercise/fitness mat - a rectangular padded mat on the floor, typically used for " +
+  "stretching or floor exercise - count this as YES even if it is empty, unrolled by itself, and no one is on it; " +
+  "(3) a person actually exercising. Answer NO only if this is a poster, flyer, QR code, sign, screenshot, or other " +
+  "printed/digital material, or a photo with no equipment or mat visible at all. Answer with only one word, YES or NO. " +
+  "Do not add any explanation.";
 
 export default {
   async fetch(request, env) {
