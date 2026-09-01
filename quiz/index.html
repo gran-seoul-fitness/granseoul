@@ -285,6 +285,48 @@
     </div>
   </div>
 
+  <div id="notStartedScreen" class="success-screen">
+    <div class="success-banner">
+      <div class="char-stamp idle">
+        <svg viewBox="0 0 120 150">
+          <defs>
+            <radialGradient id="sealBodyQ2" cx="35%" cy="28%" r="78%">
+              <stop offset="0%" stop-color="#FBFEFE"/><stop offset="100%" stop-color="#D6E8E9"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="46" cy="130" rx="9" ry="6" fill="url(#sealBodyQ2)"/>
+          <ellipse cx="74" cy="130" rx="9" ry="6" fill="url(#sealBodyQ2)"/>
+          <ellipse cx="60" cy="106" rx="25" ry="19" fill="url(#sealBodyQ2)"/>
+          <ellipse cx="28" cy="99" rx="13" ry="8" fill="url(#sealBodyQ2)" transform="rotate(25 28 99)"/>
+          <ellipse cx="92" cy="96" rx="13" ry="8" fill="url(#sealBodyQ2)" transform="rotate(-25 92 96)"/>
+          <circle cx="60" cy="56" r="40" fill="url(#sealBodyQ2)"/>
+          <ellipse cx="46" cy="72" rx="7" ry="4.5" fill="#FFC9C0" opacity="0.55"/>
+          <ellipse cx="74" cy="72" rx="7" ry="4.5" fill="#FFC9C0" opacity="0.55"/>
+          <rect x="38" y="42" width="13" height="4" rx="2" fill="#20302E" transform="rotate(-12 44 44)"/>
+          <rect x="69" y="42" width="13" height="4" rx="2" fill="#20302E" transform="rotate(12 76 44)"/>
+          <circle cx="46" cy="58" r="5" fill="#20302E"/>
+          <circle cx="74" cy="58" r="5" fill="#20302E"/>
+          <circle cx="44.5" cy="56.5" r="1.6" fill="#fff"/>
+          <circle cx="72.5" cy="56.5" r="1.6" fill="#fff"/>
+          <circle cx="60" cy="67" r="5" fill="#20302E"/>
+          <path d="M50,74 Q55,80 60,74 Q65,80 70,74" stroke="#20302E" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <g transform="translate(96 92) rotate(18)">
+            <ellipse cx="0" cy="0" rx="9" ry="5" fill="#7FC7D9"/>
+            <path d="M-9,0 L-15,-4 L-15,4 Z" fill="#7FC7D9"/>
+          </g>
+        </svg>
+      </div>
+      <div class="success-title">아직 퀴즈 시작 전이에요</div>
+      <div class="success-sub">COMING SOON</div>
+    </div>
+    <div class="success-body">
+      <div class="reward-box">
+        <div class="reward-text">9월 15일부터 참여하실 수 있어요!</div>
+      </div>
+      <div class="success-note">Vol.02 · 2026.09 이달의 퀴즈</div>
+    </div>
+  </div>
+
   <div id="closedScreen" class="success-screen">
     <div class="success-banner">
       <div class="char-stamp idle">
@@ -386,6 +428,9 @@
   // 이 값을 매달 바꿔주세요 (Vol.02 → Vol.03 ...). 바꾸면 새 호에서 다시 참여 가능해집니다.
   const QUIZ_ID = "bl_quiz_vol02";
 
+  // 이 날짜부터 참여 가능. 그 전에는 "아직 시작 전" 화면만 보여줍니다.
+  const QUIZ_START = "2026-09-15";
+
   // 이 날짜까지 참여 가능, 다음날부터 "참여기간 종료" 화면으로 전환됩니다. 다음 달로 넘어갈 때 같이 바꿔주세요.
   // (9월 마감일을 임의로 9/30로 넣어뒀어요 — 원하시는 날짜로 바꿔주세요)
   const QUIZ_DEADLINE = "2026-09-30";
@@ -417,9 +462,12 @@
     return localStorage.getItem(QUIZ_ID) === 'done' || getCookie(QUIZ_ID) === 'done';
   }
 
-  // 페이지 로드 시, 참여기간이 끝났는지 / 이 기기(브라우저)에서 이미 참여했는지 확인
+  // 페이지 로드 시, 아직 시작 전인지 / 참여기간이 끝났는지 / 이 기기(브라우저)에서 이미 참여했는지 확인
   (function checkStatus() {
-    if (todayKST() > QUIZ_DEADLINE) {
+    if (todayKST() < QUIZ_START) {
+      document.getElementById('quizScreen').style.display = 'none';
+      document.getElementById('notStartedScreen').style.display = 'block';
+    } else if (todayKST() > QUIZ_DEADLINE) {
       document.getElementById('quizScreen').style.display = 'none';
       document.getElementById('closedScreen').style.display = 'block';
     } else if (hasParticipated()) {
