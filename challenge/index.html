@@ -125,6 +125,10 @@ const EQUIPMENT_PHOTOS = {
    2. 색상 / 아이콘 / 콘텐츠 데이터
    ============================================================ */
 const COLORS = { cream: "#F4F1E8", navy: "#20392C", line: "#D8D2BE", ink: "#12190F" };
+
+// 8월 챌린지 종료 스위치: true로 두면 누가 들어와도 종료 안내만 보여주고 더 이상 진행할 수 없습니다.
+// 다음 달 챌린지를 다시 열 때는 false로 바꿔주세요.
+const CHALLENGE_ENDED = true;
 const STAMP_INK = "#1B2A20"; // 도장 잉크색: 초록 계열 유지
 
 /* Body Letter(월간 소식지) 톤에 맞춘 장식 요소: 사각 스파클 아이콘 + 겹겹 산 실루엣 */
@@ -288,6 +292,10 @@ function compressImage(file, maxSize, quality) {
    ============================================================ */
 function render() {
   const app = document.getElementById("app");
+  if (CHALLENGE_ENDED) {
+    app.innerHTML = renderChallengeEnded();
+    return;
+  }
   if (state.screen === "loading") {
     app.innerHTML = `<div class="screen" style="display:flex;align-items:center;justify-content:center;color:${COLORS.navy}">불러오는 중...</div>`;
   } else if (state.screen === "name-gate") {
@@ -297,6 +305,18 @@ function render() {
   } else if (state.screen === "main") {
     app.innerHTML = renderMain();
   }
+}
+
+function renderChallengeEnded() {
+  return `
+    <div class="screen fade-in" style="display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px;text-align:center;
+                background-image:linear-gradient(rgba(0,69,40,0.55),rgba(0,69,40,0.55)), url(${NAME_GATE_BG});background-size:cover;background-position:center;">
+      <p style="color:${COLORS.cream};font-size:10px;letter-spacing:0.3em;margin-bottom:10px;">GRAN SEOUL FITNESS</p>
+      <p class="serif" style="color:${COLORS.cream};font-size:23px;font-weight:700;letter-spacing:0.03em;margin-bottom:18px;">그랑서울 피트니스</p>
+      <div style="width:30px;height:1px;background:${COLORS.cream};opacity:0.4;margin-bottom:18px;"></div>
+      <p style="color:${COLORS.cream};font-size:16px;font-weight:700;line-height:1.6;margin-bottom:10px;">8월 건강 챌린지가<br>종료되었습니다</p>
+      <p style="color:${COLORS.cream};opacity:0.7;font-size:13px;line-height:1.7;">함께해주셔서 감사합니다.<br>다음 챌린지로 다시 찾아뵐게요.</p>
+    </div>`;
 }
 
 function renderNameGate() {
@@ -753,6 +773,7 @@ function goToMain() {
    ============================================================ */
 async function init() {
   render();
+  if (CHALLENGE_ENDED) return;
   if (!state.name) { state.screen = "name-gate"; render(); return; }
   state.stamps = await fetchMyStamps(state.name);
   await flushQueue();
