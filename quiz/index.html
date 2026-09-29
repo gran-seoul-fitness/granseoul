@@ -172,6 +172,27 @@
   .state-title{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:10px;line-height:1.6;}
   .state-desc{font-size:13px;color:var(--ink-soft);line-height:1.85;font-weight:400;}
 
+  .wait-chars{position:relative;display:flex;justify-content:center;align-items:flex-end;gap:2px;margin:0 auto 16px;height:84px;}
+  .wait-chars svg{width:66px;flex-shrink:0;filter:drop-shadow(0 8px 12px rgba(28,28,26,0.15));}
+  .wait-chars svg.wait-girl{animation:waitBounceL .9s ease-in-out infinite;}
+  .wait-chars svg.wait-boy{animation:waitBounceR .9s ease-in-out infinite .18s;}
+  @keyframes waitBounceL{
+    0%,100%{transform:translateY(0) rotate(0deg);}
+    50%{transform:translateY(-7px) rotate(-3deg);}
+  }
+  @keyframes waitBounceR{
+    0%,100%{transform:translateY(0) rotate(0deg);}
+    50%{transform:translateY(-7px) rotate(3deg);}
+  }
+  .wait-dot{position:absolute;top:-10px;font-size:20px;color:var(--gold);opacity:0;animation:waitDot 1.4s ease-in-out infinite;}
+  .wait-dot.d1{left:calc(50% - 36px);animation-delay:0s;}
+  .wait-dot.d2{left:calc(50% - 6px);animation-delay:.2s;}
+  .wait-dot.d3{left:calc(50% + 24px);animation-delay:.4s;}
+  @keyframes waitDot{
+    0%,60%,100%{opacity:0;transform:translateY(0);}
+    30%{opacity:1;transform:translateY(-6px);}
+  }
+
   .footer-note{
     padding:16px 30px 22px;text-align:center;
     font-size:10.5px;font-weight:400;color:#B4AFA2;
@@ -192,7 +213,136 @@
 
     <!-- 퀴즈 시작 전 -->
     <div id="notStartedScreen" class="screen state-screen">
-      <div class="state-icon">🗝</div>
+      <div class="wait-chars">
+        <span class="wait-dot d1">・</span>
+        <span class="wait-dot d2">・</span>
+        <span class="wait-dot d3">・</span>
+        <svg class="wait-girl" viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="skinGradGirlWait" cx="38%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#FFF3E4"/><stop offset="55%" stop-color="#FFDDB0"/><stop offset="100%" stop-color="#F2C48C"/>
+    </radialGradient>
+  </defs>
+  <circle cx="99" cy="258" r="14" fill="#F0C79A"/>
+  <circle cx="141" cy="258" r="14" fill="#F0C79A"/>
+  <path d="M 78 180 Q 120 168 162 180 L 182 264 Q 120 284 58 264 Z" fill="#1E2233"/>
+  <path d="M 96 196 L 92 258" fill="none" stroke="#3A4058" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <path d="M 144 196 L 148 258" fill="none" stroke="#3A4058" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <path d="M 82 150 Q 120 140 158 150 L 161 181 Q 120 191 79 181 Z" fill="#F5EFDD"/>
+  <path d="M 82 150 Q 120 140 158 150" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.85"/>
+  <path d="M 108 153 L 120 172 L 132 153" fill="none" stroke="#3D3A32" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="110" y="177" width="10" height="9" rx="2" fill="#D85A30"/>
+  <path d="M 113 184 Q 106 196 113 208" fill="none" stroke="#D85A30" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="113" cy="212" r="2.3" fill="#E8B84B"/>
+  <circle cx="113" cy="216.5" r="2.8" fill="#E8B84B"/>
+  <circle cx="113" cy="221" r="3.3" fill="#E8B84B"/>
+  <g transform="translate(113,229)">
+    <ellipse cx="0" cy="-5.5" rx="3.2" ry="5.5" fill="#D85A30" transform="rotate(0)"/>
+    <ellipse cx="0" cy="-5.5" rx="3.2" ry="5.5" fill="#D85A30" transform="rotate(90)"/>
+    <ellipse cx="0" cy="-5.5" rx="3.2" ry="5.5" fill="#D85A30" transform="rotate(180)"/>
+    <ellipse cx="0" cy="-5.5" rx="3.2" ry="5.5" fill="#D85A30" transform="rotate(270)"/>
+    <circle r="2.8" fill="#E8B84B"/>
+  </g>
+  <path d="M 108 235 L 106 248" fill="none" stroke="#D85A30" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M 113 236 L 113 250" fill="none" stroke="#D85A30" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M 118 235 L 120 248" fill="none" stroke="#D85A30" stroke-width="1.8" stroke-linecap="round"/>
+  <circle cx="76" cy="172" r="16" fill="#F5EFDD"/>
+  <circle cx="164" cy="172" r="16" fill="#F5EFDD"/>
+  <circle cx="60" cy="192" r="19" fill="url(#skinGradGirlWait)"/>
+  <circle cx="180" cy="192" r="19" fill="url(#skinGradGirlWait)"/>
+  <g id="hatBinyeoWait">
+    <rect x="70" y="132" width="152" height="7" rx="3.5" fill="#8B6F3D"/>
+    <circle cx="222" cy="135.5" r="8.5" fill="#7C2E22"/>
+    <path d="M 222 135 Q 229 150 222 166" fill="none" stroke="#7C2E22" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="221" cy="168" r="3.5" fill="#D85A30"/>
+    <g transform="translate(230,120)">
+      <ellipse cx="0" cy="-7" rx="4" ry="7" fill="#D85A30" transform="rotate(0)"/>
+      <ellipse cx="0" cy="-7" rx="4" ry="7" fill="#D85A30" transform="rotate(72)"/>
+      <ellipse cx="0" cy="-7" rx="4" ry="7" fill="#D85A30" transform="rotate(144)"/>
+      <ellipse cx="0" cy="-7" rx="4" ry="7" fill="#D85A30" transform="rotate(216)"/>
+      <ellipse cx="0" cy="-7" rx="4" ry="7" fill="#D85A30" transform="rotate(288)"/>
+      <circle cx="0" cy="0" r="4" fill="#E8B84B"/>
+    </g>
+  </g>
+  <circle cx="41" cy="103" r="17" fill="url(#skinGradGirlWait)"/>
+  <circle cx="199" cy="103" r="17" fill="url(#skinGradGirlWait)"/>
+  <circle cx="44" cy="103" r="8" fill="#F5A28C" opacity="0.5"/>
+  <circle cx="196" cy="103" r="8" fill="#F5A28C" opacity="0.5"/>
+  <circle cx="120" cy="95" r="72" fill="url(#skinGradGirlWait)"/>
+  <circle cx="97" cy="97" r="6.5" fill="#241F1B"/>
+  <circle cx="143" cy="97" r="6.5" fill="#241F1B"/>
+  <path d="M 86 83 Q 96 77 106 82" fill="none" stroke="#241F1B" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M 134 82 Q 144 77 154 83" fill="none" stroke="#241F1B" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="120" cy="108" r="5.8" fill="#E8A96E"/>
+  <path d="M 104 117 Q 112 126 120 117 Q 128 126 136 117" fill="none" stroke="#241F1B" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <ellipse cx="86" cy="114" rx="13" ry="8" fill="#F5A28C" opacity="0.5"/>
+  <ellipse cx="154" cy="114" rx="13" ry="8" fill="#F5A28C" opacity="0.5"/>
+  <path d="M 50 88 Q 44 18 120 15 Q 196 18 190 88 Q 190 58 120 58 Q 50 58 50 88 Z" fill="#2B2620"/>
+  <path d="M 108 16 L 132 56" fill="none" stroke="#3A342C" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+</svg>
+        <svg class="wait-boy" viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="skinGradBoyWait" cx="38%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#FFF3E4"/><stop offset="55%" stop-color="#FFDDB0"/><stop offset="100%" stop-color="#F2C48C"/>
+    </radialGradient>
+    <radialGradient id="hatGradBoyWait" cx="40%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#3A3A38"/><stop offset="100%" stop-color="#111110"/>
+    </radialGradient>
+  </defs>
+  <circle cx="99" cy="258" r="14" fill="#F0C79A"/>
+  <circle cx="141" cy="258" r="14" fill="#F0C79A"/>
+  <path d="M 78 184 Q 120 173 162 184 L 150 244 Q 120 256 90 244 Z" fill="#1C1C1A"/>
+  <circle cx="100" cy="250" r="10" fill="#F0C79A"/>
+  <circle cx="140" cy="250" r="10" fill="#F0C79A"/>
+  <path d="M 82 150 Q 120 140 158 150 L 161 184 Q 120 194 79 184 Z" fill="#F5EFDD"/>
+  <path d="M 82 150 Q 120 140 158 150" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.85"/>
+  <path d="M 108 153 L 120 172 L 132 153" fill="none" stroke="#3D3A32" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="110" y="177" width="10" height="9" rx="2" fill="#0F6E56"/>
+  <path d="M 113 184 Q 106 196 113 208" fill="none" stroke="#0F6E56" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="113" cy="212" r="2.3" fill="#E8B84B"/>
+  <circle cx="113" cy="216.5" r="2.8" fill="#E8B84B"/>
+  <circle cx="113" cy="221" r="3.3" fill="#E8B84B"/>
+  <g transform="translate(113,229)">
+    <ellipse cx="0" cy="-5.5" rx="3.2" ry="5.5" fill="#0F6E56" transform="rotate(0)"/>
+    <ellipse cx="0" cy="-5.5" rx="3.2" ry="5.5" fill="#0F6E56" transform="rotate(90)"/>
+    <ellipse cx="0" cy="-5.5" rx="3.2" ry="5.5" fill="#0F6E56" transform="rotate(180)"/>
+    <ellipse cx="0" cy="-5.5" rx="3.2" ry="5.5" fill="#0F6E56" transform="rotate(270)"/>
+    <circle r="2.8" fill="#E8B84B"/>
+  </g>
+  <path d="M 108 235 L 106 248" fill="none" stroke="#0F6E56" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M 113 236 L 113 250" fill="none" stroke="#0F6E56" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M 118 235 L 120 248" fill="none" stroke="#0F6E56" stroke-width="1.8" stroke-linecap="round"/>
+  <circle cx="76" cy="172" r="16" fill="#F5EFDD"/>
+  <circle cx="164" cy="172" r="16" fill="#F5EFDD"/>
+  <circle cx="60" cy="192" r="19" fill="url(#skinGradBoyWait)"/>
+  <circle cx="180" cy="192" r="19" fill="url(#skinGradBoyWait)"/>
+  <circle cx="41" cy="103" r="17" fill="url(#skinGradBoyWait)"/>
+  <circle cx="199" cy="103" r="17" fill="url(#skinGradBoyWait)"/>
+  <circle cx="44" cy="103" r="8" fill="#F5A28C" opacity="0.5"/>
+  <circle cx="196" cy="103" r="8" fill="#F5A28C" opacity="0.5"/>
+  <circle cx="120" cy="95" r="72" fill="url(#skinGradBoyWait)"/>
+  <circle cx="97" cy="97" r="6.5" fill="#241F1B"/>
+  <circle cx="143" cy="97" r="6.5" fill="#241F1B"/>
+  <path d="M 86 83 Q 96 77 106 82" fill="none" stroke="#241F1B" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M 134 82 Q 144 77 154 83" fill="none" stroke="#241F1B" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="120" cy="108" r="5.8" fill="#E8A96E"/>
+  <path d="M 104 117 Q 112 126 120 117 Q 128 126 136 117" fill="none" stroke="#241F1B" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <ellipse cx="86" cy="114" rx="13" ry="8" fill="#F5A28C" opacity="0.5"/>
+  <ellipse cx="154" cy="114" rx="13" ry="8" fill="#F5A28C" opacity="0.5"/>
+  <path d="M 50 88 Q 44 18 120 15 Q 196 18 190 88 Q 190 58 120 58 Q 50 58 50 88 Z" fill="#2B2620"/>
+  <path d="M 108 16 L 132 56" fill="none" stroke="#3A342C" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+  <g id="hatGatWait">
+    <ellipse cx="120" cy="44" rx="98" ry="13" fill="url(#hatGradBoyWait)"/>
+    <path d="M 90 46 L 87 -14 L 153 -14 L 150 46 Z" fill="url(#hatGradBoyWait)"/>
+    <ellipse cx="120" cy="-14" rx="33" ry="6" fill="#454542"/>
+    <path d="M 84 51 L 78 148 Q 78 158 100 167" fill="none" stroke="#B5342A" stroke-width="7" stroke-linecap="round"/>
+    <path d="M 156 51 L 162 148 Q 162 158 140 167" fill="none" stroke="#B5342A" stroke-width="7" stroke-linecap="round"/>
+    <path d="M 120 168 L 106 158 L 106 178 Z" fill="#B5342A"/>
+    <path d="M 120 168 L 134 158 L 134 178 Z" fill="#B5342A"/>
+    <rect x="115" y="161" width="10" height="13" rx="3" fill="#7C2E22"/>
+  </g>
+</svg>
+      </div>
       <div class="state-title">퀴즈가 아직 열리지 않았습니다</div>
       <div class="state-desc">10월 1일부터 10월 15일까지<br>참여하실 수 있습니다.<br>그때 다시 찾아와주세요.</div>
     </div>
