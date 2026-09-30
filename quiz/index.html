@@ -94,9 +94,17 @@
 
   .riddle-wrap{position:relative;margin-bottom:18px;}
   .quiz-riddle{
+    position:relative;
     background:#FBF9F4;border-radius:14px;padding:16px 74px 16px 18px;
     font-size:13.5px;line-height:1.8;color:var(--ink);
     border-left:3px solid var(--orange);
+  }
+  .quiz-riddle::after{
+    content:'';position:absolute;right:-9px;top:36%;
+    width:0;height:0;
+    border-top:8px solid transparent;
+    border-bottom:8px solid transparent;
+    border-left:10px solid #FBF9F4;
   }
   .quiz-riddle strong{color:var(--orange);}
   .quiz-riddle u{text-decoration-color:var(--orange);text-underline-offset:3px;}
@@ -105,13 +113,16 @@
     width:58px;
   }
   .riddle-char svg{
-    width:100%;display:block;
+    width:100%;display:block;transform-origin:50% 100%;
     filter:drop-shadow(0 6px 10px rgba(28,28,26,0.18));
-    animation:riddleCharBob 2.2s ease-in-out infinite;
+    animation:riddleCharBounce 1.3s cubic-bezier(.34,1.56,.64,1) infinite;
   }
-  @keyframes riddleCharBob{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-5px);}
+  @keyframes riddleCharBounce{
+    0%,100%{transform:translateY(0) scaleY(1);}
+    35%{transform:translateY(-15px) scaleY(1.04);}
+    55%{transform:translateY(0) scaleY(0.92);}
+    70%{transform:translateY(-5px) scaleY(1.02);}
+    85%{transform:translateY(0) scaleY(1);}
   }
   .riddle-bubble{
     position:absolute;top:-10px;left:50%;transform:translateX(-50%);
