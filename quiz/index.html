@@ -123,17 +123,12 @@
     background:#FBF9F4;border:1px solid rgba(28,28,26,0.14);
     border-radius:50%;width:22px;height:22px;
     display:flex;align-items:center;justify-content:center;
-    font-family:Arial,'Malgun Gothic',sans-serif;
     font-size:13px;font-weight:800;color:var(--orange);
     animation:riddleBubblePop 2.2s ease-in-out infinite;
   }
   @keyframes riddleBubblePop{
     0%,20%,100%{opacity:0;transform:translateX(-50%) translateY(4px) scale(.7);}
     40%,70%{opacity:1;transform:translateX(-50%) translateY(0) scale(1);}
-  }
-  .riddle-arrow{
-    position:absolute;right:-4px;top:-25px;width:160px;height:95px;
-    pointer-events:none;
   }
 
   .choice-list{display:flex;flex-direction:column;gap:8px;}
@@ -405,10 +400,6 @@
         <div class="quiz-riddle">
           다음 중 <strong>오늘의 체크리스트</strong>로<br>옳지 <u>않은</u> 것은?
         </div>
-        <svg class="riddle-arrow" viewBox="0 0 160 95" xmlns="http://www.w3.org/2000/svg">
-          <path d="M 100 55 C 118 75, 95 92, 55 90 C 36 89, 22 82, 16 69" fill="none" stroke="#D85A30" stroke-width="4" stroke-linecap="round"/>
-          <path d="M 8 55 L 16 69 L 29 62" fill="none" stroke="#D85A30" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
         <div class="riddle-char">
           <div class="riddle-bubble">?</div>
           <svg viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg">
@@ -457,7 +448,7 @@
             <button type="button" class="choice-btn" data-choice="2">책상에 팔꿈치는 90도, 등은 등받이에 기대 앉기</button>
             <button type="button" class="choice-btn" data-choice="3">1시간마다 일어나서 움직이기</button>
             <button type="button" class="choice-btn" data-choice="4">베개는 어깨 폭 높이로</button>
-            <button type="button" class="choice-btn" data-choice="5">가방 한쪽으로 오래 메기</button>
+            <button type="button" class="choice-btn" data-choice="5">가방 한쪽 어깨로 오래 메기</button>
             <button type="button" class="choice-btn" data-choice="6">통화 시 이어폰, 스피커폰 사용하기</button>
           </div>
         </div>
