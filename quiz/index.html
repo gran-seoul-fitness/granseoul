@@ -92,13 +92,41 @@
   input[type="text"]:focus{outline:none;border-color:var(--orange);}
   .optional-tag{color:#B4AFA2;font-weight:400;text-transform:none;letter-spacing:0;}
 
+  .riddle-wrap{position:relative;margin-bottom:18px;}
   .quiz-riddle{
-    background:#FBF9F4;border-radius:14px;padding:16px 18px;
-    font-size:13.5px;line-height:1.8;color:var(--ink);margin-bottom:18px;
+    background:#FBF9F4;border-radius:14px;padding:16px 74px 16px 18px;
+    font-size:13.5px;line-height:1.8;color:var(--ink);
     border-left:3px solid var(--orange);
   }
   .quiz-riddle strong{color:var(--orange);}
   .quiz-riddle u{text-decoration-color:var(--orange);text-underline-offset:3px;}
+  .riddle-char{
+    position:absolute;right:6px;top:50%;transform:translateY(-50%);
+    width:58px;
+  }
+  .riddle-char svg{
+    width:100%;display:block;
+    filter:drop-shadow(0 6px 10px rgba(28,28,26,0.18));
+    animation:riddleCharBob 2.2s ease-in-out infinite;
+  }
+  @keyframes riddleCharBob{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-5px);}
+  }
+  .riddle-bubble{
+    position:absolute;top:-10px;left:50%;transform:translateX(-50%);
+    z-index:2;
+    background:#FBF9F4;border:1px solid rgba(28,28,26,0.14);
+    border-radius:50%;width:22px;height:22px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:Arial,'Malgun Gothic',sans-serif;
+    font-size:13px;font-weight:800;color:var(--orange);
+    animation:riddleBubblePop 2.2s ease-in-out infinite;
+  }
+  @keyframes riddleBubblePop{
+    0%,20%,100%{opacity:0;transform:translateX(-50%) translateY(4px) scale(.7);}
+    40%,70%{opacity:1;transform:translateX(-50%) translateY(0) scale(1);}
+  }
 
   .choice-list{display:flex;flex-direction:column;gap:8px;}
   .choice-btn{
@@ -365,8 +393,45 @@
     <div id="formScreen" class="screen">
       <div class="q-title">이달의 퀴즈를 풀어보세요</div>
       <div class="q-desc">정답을 맞히시고 <strong>7층 데스크</strong>로 문의해주시면<br>참여를 확인해드립니다.</div>
-      <div class="quiz-riddle">
-        다음 중 <strong>오늘의 체크리스트</strong>로<br>옳지 <u>않은</u> 것은?
+      <div class="riddle-wrap">
+        <div class="quiz-riddle">
+          다음 중 <strong>오늘의 체크리스트</strong>로<br>옳지 <u>않은</u> 것은?
+        </div>
+        <div class="riddle-char">
+          <div class="riddle-bubble">?</div>
+          <svg viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="skinGradGym" cx="38%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#FFF3E4"/><stop offset="55%" stop-color="#FFDDB0"/><stop offset="100%" stop-color="#F2C48C"/>
+    </radialGradient>
+  </defs>
+  <circle cx="99" cy="258" r="14" fill="#F0C79A"/>
+  <circle cx="141" cy="258" r="14" fill="#F0C79A"/>
+  <path d="M 78 205 Q 120 194 162 205 L 154 240 Q 120 250 86 240 Z" fill="#1C1C1A"/>
+  <circle cx="100" cy="246" r="10" fill="#F0C79A"/>
+  <circle cx="140" cy="246" r="10" fill="#F0C79A"/>
+  <path d="M 82 150 Q 120 139 158 150 L 165 206 Q 120 220 75 206 Z" fill="#A2A29A"/>
+  <circle cx="76" cy="172" r="17" fill="#8C8C84"/>
+  <circle cx="164" cy="172" r="17" fill="#8C8C84"/>
+  <circle cx="60" cy="192" r="19" fill="url(#skinGradGym)"/>
+  <circle cx="180" cy="192" r="19" fill="url(#skinGradGym)"/>
+  <circle cx="41" cy="103" r="17" fill="url(#skinGradGym)"/>
+  <circle cx="199" cy="103" r="17" fill="url(#skinGradGym)"/>
+  <circle cx="44" cy="103" r="8" fill="#F5A28C" opacity="0.5"/>
+  <circle cx="196" cy="103" r="8" fill="#F5A28C" opacity="0.5"/>
+  <circle cx="120" cy="95" r="72" fill="url(#skinGradGym)"/>
+  <circle cx="97" cy="97" r="6.5" fill="#241F1B"/>
+  <circle cx="143" cy="97" r="6.5" fill="#241F1B"/>
+  <path d="M 86 83 Q 96 77 106 82" fill="none" stroke="#241F1B" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M 134 82 Q 144 77 154 83" fill="none" stroke="#241F1B" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="120" cy="108" r="5.8" fill="#E8A96E"/>
+  <path d="M 104 117 Q 112 126 120 117 Q 128 126 136 117" fill="none" stroke="#241F1B" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <ellipse cx="86" cy="114" rx="13" ry="8" fill="#F5A28C" opacity="0.5"/>
+  <ellipse cx="154" cy="114" rx="13" ry="8" fill="#F5A28C" opacity="0.5"/>
+  <path d="M 50 88 Q 44 18 120 15 Q 196 18 190 88 Q 190 58 120 58 Q 50 58 50 88 Z" fill="#2B2620"/>
+  <path d="M 108 16 L 132 56" fill="none" stroke="#3A342C" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+</svg>
+        </div>
       </div>
       <form id="quizForm">
         <div class="field">
