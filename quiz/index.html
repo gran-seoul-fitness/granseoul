@@ -117,20 +117,6 @@
     70%{transform:translateY(-5px) scaleY(1.02);}
     85%{transform:translateY(0) scaleY(1);}
   }
-  .riddle-bubble{
-    position:absolute;top:-10px;left:50%;transform:translateX(-50%);
-    z-index:2;
-    background:#FBF9F4;border:1px solid rgba(28,28,26,0.14);
-    border-radius:50%;width:22px;height:22px;
-    display:flex;align-items:center;justify-content:center;
-    font-size:13px;font-weight:800;color:var(--orange);
-    animation:riddleBubblePop 2.2s ease-in-out infinite;
-  }
-  @keyframes riddleBubblePop{
-    0%,20%,100%{opacity:0;transform:translateX(-50%) translateY(4px) scale(.7);}
-    40%,70%{opacity:1;transform:translateX(-50%) translateY(0) scale(1);}
-  }
-
   .choice-list{display:flex;flex-direction:column;gap:8px;}
   .choice-btn{
     width:100%;text-align:left;background:#FBF9F4;
@@ -401,7 +387,6 @@
           다음 중 <strong>오늘의 체크리스트</strong>로<br>옳지 <u>않은</u> 것은?
         </div>
         <div class="riddle-char">
-          <div class="riddle-bubble">?</div>
           <svg viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <radialGradient id="skinGradGym" cx="38%" cy="30%" r="75%">
