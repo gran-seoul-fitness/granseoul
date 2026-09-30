@@ -366,7 +366,7 @@
       <div class="q-title">이달의 퀴즈를 풀어보세요</div>
       <div class="q-desc">정답을 맞히시고 <strong>7층 데스크</strong>로 문의해주시면<br>참여를 확인해드립니다.</div>
       <div class="quiz-riddle">
-        다음 중 <strong>오늘의 체크리스트</strong>로<br>올바르지 <u>않은</u> 것은?
+        다음 중 <strong>오늘의 체크리스트</strong>로<br>옳지 <u>않은</u> 것은?
       </div>
       <form id="quizForm">
         <div class="field">
@@ -377,10 +377,10 @@
           <label>정답을 선택해주세요</label>
           <div class="choice-list" id="choiceList">
             <button type="button" class="choice-btn" data-choice="1">모니터·스마트폰은 눈높이로</button>
-            <button type="button" class="choice-btn" data-choice="2">책상에 팔꿈치는 45도, 등은 등받이에 기대 앉기</button>
+            <button type="button" class="choice-btn" data-choice="2">책상에 팔꿈치는 90도, 등은 등받이에 기대 앉기</button>
             <button type="button" class="choice-btn" data-choice="3">1시간마다 일어나서 움직이기</button>
             <button type="button" class="choice-btn" data-choice="4">베개는 어깨 폭 높이로</button>
-            <button type="button" class="choice-btn" data-choice="5">가방 한쪽으로 메지 않기</button>
+            <button type="button" class="choice-btn" data-choice="5">가방 한쪽으로 오래 메기</button>
             <button type="button" class="choice-btn" data-choice="6">통화 시 이어폰, 스피커폰 사용하기</button>
           </div>
         </div>
@@ -569,7 +569,7 @@
   // 이 날짜까지 참여 가능, 다음날부터 "참여기간 종료" 화면으로 전환됩니다. 다음 달로 넘어갈 때 같이 바꿔주세요.
   const QUIZ_DEADLINE = '2026-10-15';
 
-  const CORRECT_CHOICE = '2'; // 체크리스트 원문은 "90도" — 여기서는 "45도"로 바꿔 오답으로 만듦
+  const CORRECT_CHOICE = '5'; // 체크리스트 원문은 "메지 않기" — 여기서는 "오래 메기"로 바꿔 오답으로 만듦
   let selectedChoice = null;
 
   function todayKST() {
