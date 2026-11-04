@@ -599,7 +599,7 @@
       <div class="success-title">정답입니다!</div>
       <div class="success-desc">7층 데스크에 방문하시어<br>참여를 확인받아 주세요.</div>
       <div class="reward-box">
-        <div class="reward-main">리워드는 퀴즈 기간(10/15) 종료 후<br>지급 예정입니다.</div>
+        <div class="reward-main">리워드는 참여 확인 후<br>순차적으로 지급 예정입니다.</div>
         <div class="reward-location">참여해주셔서 감사합니다!</div>
       </div>
     </div>
@@ -619,8 +619,9 @@
   // 이 날짜부터 참여 가능. 그 전에는 "아직 시작 전" 화면만 보여줍니다.
   const QUIZ_START = '2026-10-01';
 
-  // 이 날짜까지 참여 가능, 다음날부터 "참여기간 종료" 화면으로 전환됩니다. 다음 달로 넘어갈 때 같이 바꿔주세요.
-  const QUIZ_DEADLINE = '2026-10-15';
+  // 이 날짜까지 참여 가능, 다음날부터 "참여기간 종료" 화면으로 전환됩니다.
+  // 기한 없이 계속 열어두기로 해서 먼 미래 날짜로 설정해둠 (8월 챌린지와 동일한 방식).
+  const QUIZ_DEADLINE = '2099-12-31';
 
   const CORRECT_CHOICE = '5'; // 체크리스트 원문은 "메지 않기" — 여기서는 "오래 메기"로 바꿔 오답으로 만듦
   let selectedChoice = null;
