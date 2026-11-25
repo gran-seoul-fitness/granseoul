@@ -146,21 +146,18 @@
     background:url('https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/cap2.webp') center top/100% 100% no-repeat;
     filter:drop-shadow(0 3px 3px rgba(20,40,90,.3));pointer-events:none;z-index:2;
   }
-  .santa-promo img{
-    width:92px;display:block;margin:-46px auto 6px;position:relative;z-index:3;
-    filter:drop-shadow(0 10px 14px rgba(20,34,74,.4));
-    transform-origin:50% 100%;
-    animation:santaIdle 2.4s ease-in-out infinite;
+  .santa-promo .santa-line{font-family:var(--display);font-weight:700;font-size:15px;color:#fff;text-shadow:0 0 14px rgba(200,220,255,.75),0 0 2px rgba(255,255,255,.6);margin:6px 0 12px;}
+  .santa-promo .room-photo{
+    width:100%;aspect-ratio:4/3;border-radius:16px;overflow:hidden;position:relative;z-index:1;
+    border:1px solid rgba(255,255,255,.45);
+    box-shadow:0 10px 26px rgba(10,20,50,.4),inset 0 1px 0 rgba(255,255,255,.3);
   }
-  @keyframes santaIdle{
-    0%,100%{transform:rotate(0) scale(1,1);}
-    20%{transform:rotate(-7deg) scale(1.04,.96);}
-    45%{transform:rotate(0) translateY(-10px) scale(.96,1.05);}
-    70%{transform:rotate(7deg) scale(1.04,.96);}
-    85%{transform:rotate(0) scale(1,1);}
+  .santa-promo .room-photo img{
+    width:100%;height:100%;object-fit:cover;object-position:center 62%;display:block;
+    animation:roomGlow 4s ease-in-out infinite;
   }
-  .santa-promo .santa-line{font-family:var(--display);font-weight:700;font-size:15px;color:#fff;text-shadow:0 0 14px rgba(200,220,255,.75),0 0 2px rgba(255,255,255,.6);margin-bottom:4px;}
-  .santa-promo .santa-sub{font-size:12.5px;color:#E8F0FB;margin-bottom:14px;}
+  @keyframes roomGlow{0%,100%{transform:scale(1);}50%{transform:scale(1.035);}}
+  .santa-promo .santa-sub{font-size:12.5px;color:#E8F0FB;margin:12px 0 14px;}
   .santa-btn{
     display:block;width:100%;border:1.5px solid rgba(255,255,255,.55);cursor:pointer;text-decoration:none;
     margin-top:12px;padding:15px;border-radius:999px;
@@ -255,8 +252,10 @@
   </div>
 
   <div class="santa-promo">
-    <img src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/g_point0.webp" alt="산타">
     <div class="santa-line">산타가 기다리고 있어요!</div>
+    <div class="room-photo">
+      <img src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/room1.webp" alt="벽난로 앞 안락의자에 앉은 산타와 바닥에 놓인 초코칩 쿠키들">
+    </div>
     <div class="santa-sub">12월 파이널 건강챌린지도 함께 참여해보세요</div>
     <a class="santa-btn" href="https://gran-seoul-fitness.github.io/gran-seoul-12/">산타와 건강챌린지 하러 가기 →</a>
   </div>
