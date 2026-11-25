@@ -104,12 +104,12 @@
   }
   .room-hero .glasses-layer img{width:100%;display:block;}
   .room-hero .talk{
-    position:absolute;left:14px;right:14px;bottom:14px;margin:0;z-index:2;
+    position:absolute;left:14px;right:14px;bottom:40px;margin:0;z-index:2;
   }
   .room-hero .talk::after{display:none;}
   .room-hero::after{
-    content:'';position:absolute;left:0;right:0;bottom:0;height:70px;z-index:1;pointer-events:none;
-    background:linear-gradient(to bottom,rgba(42,22,11,0),rgba(72,100,184,.85));
+    content:'';position:absolute;left:0;right:0;bottom:0;height:140px;z-index:1;pointer-events:none;
+    background:linear-gradient(to bottom,rgba(42,22,11,0) 0%,rgba(60,75,140,.6) 45%,rgba(93,120,195,1) 100%);
   }
   .room-hero .challenge-chip{
     position:absolute;left:58%;top:5%;right:4%;z-index:2;
@@ -178,12 +178,23 @@
     content:'';display:block;margin:0 -22px 24px;height:56px;
     background:linear-gradient(to bottom,#2a160b,var(--card2));
   }
-  .trophy-wrap{width:140px;margin:0 auto 10px;}
+  .success-scene{position:relative;width:230px;height:175px;margin:0 auto 6px;}
+  .trophy-wrap{position:absolute;left:50%;top:0;width:118px;margin:0;transform:translateX(-50%);z-index:2;}
   .trophy-wrap img{
     width:100%;display:block;filter:drop-shadow(0 10px 18px rgba(60,84,120,.3)) saturate(1.6) contrast(1.08);
     animation:trophyBob 2.4s ease-in-out infinite;
   }
   @keyframes trophyBob{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-8px) rotate(-2deg);}}
+  .sc-gift,.sc-cookie{position:absolute;z-index:1;filter:drop-shadow(0 8px 14px rgba(10,20,50,.35));}
+  .sc-gift{left:0;bottom:4px;width:76px;animation:objBob 3s ease-in-out infinite;}
+  .sc-cookie{right:2px;bottom:16px;width:68px;animation:objBob 3.4s ease-in-out .4s infinite;}
+  @keyframes objBob{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-7px) rotate(-4deg);}}
+  .sparkle{position:absolute;color:var(--glow);text-shadow:0 0 6px rgba(246,217,160,.8);animation:twinkle 1.8s ease-in-out infinite;pointer-events:none;}
+  .sparkle.sp1{left:8%;top:6%;font-size:18px;animation-delay:0s;}
+  .sparkle.sp2{right:14%;top:2%;font-size:12px;animation-delay:.5s;}
+  .sparkle.sp3{left:34%;bottom:2%;font-size:11px;animation-delay:1s;}
+  .sparkle.sp4{right:26%;bottom:38%;font-size:14px;animation-delay:1.4s;}
+  @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.7);}50%{opacity:1;transform:scale(1.2);}}
   .success-title,.state-title{font-size:21px;color:var(--glow);margin-bottom:10px;}
   .success-desc,.state-desc{font-size:14px;color:#E8F0FB;line-height:1.7;}
   .state-icon{font-size:40px;margin-bottom:14px;}
@@ -299,10 +310,18 @@
     </div>
 
     <div id="successScreen" class="screen success-screen">
-      <div class="trophy-wrap">
-        <img src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/ic_trophy.webp" alt="트로피">
+      <div class="success-scene">
+        <img class="sc-gift" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/gift.webp" alt="">
+        <div class="trophy-wrap">
+          <img src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/ic_trophy.webp" alt="트로피">
+        </div>
+        <img class="sc-cookie" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/choco1.webp" alt="">
+        <span class="sparkle sp1">✦</span>
+        <span class="sparkle sp2">✦</span>
+        <span class="sparkle sp3">✦</span>
+        <span class="sparkle sp4">✦</span>
       </div>
-      <div class="success-title">정답입니다!</div>
+      <div class="success-title">정답이라네!</div>
       <div class="success-desc">7층 데스크에 방문하시어<br>참여를 확인받아 주세요.</div>
       <div class="reward-box">
         <div class="reward-main">리워드는 참여 확인 후<br>순차적으로 지급 예정입니다.</div>
