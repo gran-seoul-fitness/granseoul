@@ -173,7 +173,11 @@
   .toast.show{display:block;}
 
   /* ---------- Success / state screens ---------- */
-  .success-screen,.state-screen{text-align:center;}
+  .success-screen,.state-screen{position:relative;text-align:center;}
+  .success-screen::before,.state-screen::before{
+    content:'';display:block;margin:0 -22px 24px;height:56px;
+    background:linear-gradient(to bottom,#2a160b,var(--card2));
+  }
   .trophy-wrap{width:140px;margin:0 auto 10px;}
   .trophy-wrap img{
     width:100%;display:block;filter:drop-shadow(0 10px 18px rgba(60,84,120,.3)) saturate(1.6) contrast(1.08);
