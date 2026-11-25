@@ -39,7 +39,12 @@
     padding:4px 12px;border-radius:20px;margin-bottom:12px;
   }
   .eyebrow{font-size:11px;letter-spacing:.28em;color:var(--mist);text-transform:uppercase;}
-  .head{text-align:center;padding:4px 8px 22px;}
+  .head{
+    position:relative;text-align:center;
+    margin:-30px -22px 0;padding:30px 22px 20px;
+    background:linear-gradient(to bottom,#0b0604 0%,#1c0f08 55%,#2a160b 100%);
+    border-radius:20px 20px 0 0;
+  }
   .head h1{font-size:25px;line-height:1.35;margin-top:8px;color:#fff;text-shadow:0 0 14px rgba(200,220,255,.75),0 0 2px rgba(255,255,255,.6);}
   .head h1 span{color:var(--glow);}
   .head p{margin-top:8px;font-size:13.5px;color:var(--mist);}
@@ -81,12 +86,16 @@
 
   /* ---------- Room hero (quiz question bubble over the Santa scene) ---------- */
   .room-hero{
-    position:relative;margin:-30px -22px 20px;border-radius:20px 20px 0 0;overflow:hidden;z-index:1;
+    position:relative;margin:0 -22px 20px;overflow:hidden;z-index:1;
   }
   .room-hero img.base{width:100%;aspect-ratio:1080/1350;object-fit:cover;display:block;animation:roomGlow 4s ease-in-out infinite;}
   @keyframes roomGlow{0%,100%{transform:scale(1);}50%{transform:scale(1.025);}}
   .room-hero .arm-layer{
     position:absolute;left:39.259%;top:33.63%;width:33.056%;height:25.037%;
+    object-fit:contain;pointer-events:none;z-index:1;
+  }
+  .room-hero .arm-layer-r{
+    position:absolute;left:62.593%;top:41.037%;width:28.426%;height:17.333%;
     object-fit:contain;pointer-events:none;z-index:1;
   }
   .room-hero .glasses-layer{
@@ -98,9 +107,25 @@
     position:absolute;left:14px;right:14px;bottom:14px;margin:0;z-index:2;
   }
   .room-hero .talk::after{display:none;}
+  .room-hero::after{
+    content:'';position:absolute;left:0;right:0;bottom:0;height:70px;z-index:1;pointer-events:none;
+    background:linear-gradient(to bottom,rgba(42,22,11,0),rgba(72,100,184,.85));
+  }
+  .room-hero .challenge-chip{
+    position:absolute;left:58%;top:5%;right:4%;z-index:2;
+    display:block;text-align:center;text-decoration:none;
+    padding:10px 10px;border-radius:14px;
+    font-family:var(--display);font-weight:600;font-size:12.5px;line-height:1.4;color:#fff;
+    background:rgba(20,10,5,.52);border:1px solid rgba(255,214,160,.55);
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+    text-shadow:0 1px 3px rgba(0,0,0,.5);
+  }
 
   label{display:block;font-family:var(--display);font-size:11px;font-weight:600;letter-spacing:1px;color:var(--glow);text-transform:uppercase;margin-bottom:8px;}
   .field{margin-bottom:16px;}
+  .field-row{display:flex;gap:10px;}
+  .field-row .field{flex:1;min-width:0;margin-bottom:16px;}
+  .field-row select,.field-row input{padding-left:12px;padding-right:30px;}
   input[type="text"],select{
     width:100%;background:rgba(255,255,255,.92);
     border:1px solid rgba(255,255,255,.7);border-radius:14px;padding:13px 16px;
@@ -116,15 +141,21 @@
 
   .choice-list{display:flex;flex-direction:column;gap:8px;}
   .choice-btn{
-    width:100%;text-align:left;
+    width:100%;text-align:left;display:flex;align-items:center;gap:12px;
     border:1px solid rgba(255,255,255,.32);background:rgba(255,255,255,.1);
     color:#fff;font-family:var(--body);font-size:14px;
-    padding:13px 16px;border-radius:14px;cursor:pointer;
+    padding:10px 16px;border-radius:14px;cursor:pointer;
     transition:border-color .15s ease,background .15s ease;
+  }
+  .c-ic{
+    display:flex;align-items:center;justify-content:center;flex:none;
+    width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.3);color:#fff;
   }
   .choice-btn.selected{
     border-color:var(--glow);background:rgba(246,217,160,.22);font-weight:600;color:var(--glow);
   }
+  .choice-btn.selected .c-ic{background:rgba(246,217,160,.3);color:var(--glow);}
 
   .btn{
     display:block;width:100%;border:1.5px solid rgba(255,255,255,.55);cursor:pointer;margin-top:14px;
@@ -195,14 +226,14 @@
 <canvas id="snowfx" aria-hidden="true"></canvas>
 
 <div class="app">
-  <div class="head">
-    <div class="issue-tag">12월 · 05호</div>
-    <div class="eyebrow">GRAN SEOUL FITNESS</div>
-    <h1>12월 파이널<br><span>무릎 지식 퀴즈</span></h1>
-    <p>겨울철 무릎 건강, 얼마나 알고 계신가요?</p>
-  </div>
-
   <div class="glass">
+
+    <div class="head">
+      <div class="issue-tag">12월 · 05호</div>
+      <div class="eyebrow">GRAN SEOUL FITNESS</div>
+      <h1>12월<br><span>무릎 지식 퀴즈</span></h1>
+      <p>겨울철 무릎 건강, 얼마나 알고 계신가요?</p>
+    </div>
 
     <div id="notStartedScreen" class="screen state-screen">
       <div class="state-icon">⏳</div>
@@ -226,32 +257,36 @@
       <div class="room-hero">
         <img class="base" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/room1.webp" alt="벽난로 앞 안락의자에 앉은 산타와 바닥에 놓인 초코칩 쿠키들">
         <img class="arm-layer" id="santaArm" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/s1_L_rest.webp" alt="">
+        <img class="arm-layer-r" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/s1_R_e100.webp" alt="">
         <div class="glasses-layer" id="santaGlasses"><img src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/glasses.webp" alt=""></div>
+        <a class="challenge-chip" href="https://gran-seoul-fitness.github.io/gran-seoul-12/">마지막 건강챌린지<br>하러 가기 →</a>
         <div class="talk">
           <div class="who">산타</div>
-          <p>무릎뼈 아래 힘줄 뒤, 신경이 아주 많이 분포되어<br>무릎의 쿠션 역할을 하는 것은?</p>
+          <p>무릎에 관한 퀴즈를 낼 테니, 한 번 맞춰보게!<br>무릎뼈 아래 힘줄 뒤, 신경이 아주 많이 분포되어<br>무릎의 쿠션 역할을 하는 것은?</p>
         </div>
       </div>
 
       <form id="quizForm" novalidate>
-        <div class="field">
-          <label>성함</label>
-          <input type="text" id="nameInput" placeholder="이름을 입력해주세요" required>
-        </div>
-        <div class="field">
-          <label>입주사</label>
-          <select id="companyInput" required>
-            <option value="" disabled selected>입주사를 선택해주세요</option>
-          </select>
+        <div class="field-row">
+          <div class="field">
+            <label>성함</label>
+            <input type="text" id="nameInput" placeholder="이름을 입력해주세요" required>
+          </div>
+          <div class="field">
+            <label>입주사</label>
+            <select id="companyInput" required>
+              <option value="" disabled selected>선택해주세요</option>
+            </select>
+          </div>
         </div>
         <div class="field">
           <label>정답을 선택해주세요</label>
           <div class="choice-list" id="choiceList">
-            <button type="button" class="choice-btn" data-choice="1">반월상연골</button>
-            <button type="button" class="choice-btn" data-choice="2">장경인대</button>
-            <button type="button" class="choice-btn" data-choice="3">십자인대</button>
-            <button type="button" class="choice-btn" data-choice="4">지방체</button>
-            <button type="button" class="choice-btn" data-choice="5">근육 (반막양근, 슬와근)</button>
+            <button type="button" class="choice-btn" data-choice="1"><span class="c-ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8.5 3.5a9 9 0 100 17 7 7 0 010-17z"/></svg></span><span class="c-tx">반월상연골</span></button>
+            <button type="button" class="choice-btn" data-choice="2"><span class="c-ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="9" y="2" width="6" height="20" rx="3"/></svg></span><span class="c-tx">장경인대</span></button>
+            <button type="button" class="choice-btn" data-choice="3"><span class="c-ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></span><span class="c-tx">십자인대</span></button>
+            <button type="button" class="choice-btn" data-choice="4"><span class="c-ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="13" rx="8.5" ry="6.5"/></svg></span><span class="c-tx">지방체</span></button>
+            <button type="button" class="choice-btn" data-choice="5"><span class="c-ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 16c0-6.5 4.2-12 10.5-12 4 0 6.5 2.8 6.5 6 0 5.8-5 10-11 10-3 0-6-1.4-6-4z"/></svg></span><span class="c-tx">근육 (반막양근, 슬와근)</span></button>
           </div>
         </div>
         <button type="submit" class="btn" id="submitBtn">정답 제출하기</button>
@@ -271,12 +306,6 @@
       </div>
     </div>
 
-  </div>
-
-  <div class="santa-promo">
-    <div class="santa-line">산타가 기다리고 있어요!</div>
-    <div class="santa-sub">12월 파이널 건강챌린지도 함께 참여해보세요</div>
-    <a class="santa-btn" href="https://gran-seoul-fitness.github.io/gran-seoul-12/">산타와 건강챌린지 하러 가기 →</a>
   </div>
 
   <div class="footer-note">그랑서울 피트니스 × 12월 파이널 챌린지</div>
