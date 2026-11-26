@@ -198,6 +198,22 @@
   .success-title,.state-title{font-size:21px;color:var(--glow);margin-bottom:10px;}
   .success-desc,.state-desc{font-size:14px;color:#E8F0FB;line-height:1.7;}
   .state-icon{font-size:40px;margin-bottom:14px;}
+  .wait-scene{position:relative;width:150px;height:170px;margin:0 auto 16px;}
+  .wait-gift{
+    width:118px;display:block;margin:0 auto;position:relative;z-index:1;
+    filter:drop-shadow(0 10px 20px rgba(10,20,50,.4));
+    animation:objBob 3s ease-in-out infinite;
+  }
+  .wait-badge{
+    position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:2;
+    background:linear-gradient(#FFCB84,#F2963F);color:#3B1E08;
+    font-family:var(--display);font-weight:700;font-size:12.5px;letter-spacing:.03em;
+    padding:5px 16px;border-radius:999px;white-space:nowrap;
+    box-shadow:0 5px 0 #B4642C,0 8px 16px rgba(0,0,0,.25);
+  }
+  .wait-scene .sparkle.sp1{left:2%;top:10%;}
+  .wait-scene .sparkle.sp2{right:6%;top:18%;}
+  .wait-scene .sparkle.sp3{left:16%;bottom:28%;}
   .reward-box{
     margin-top:18px;padding:14px 16px;border-radius:16px;
     background:rgba(255,255,255,.1);border:1px dashed rgba(255,255,255,.4);
@@ -251,7 +267,13 @@
     </div>
 
     <div id="notStartedScreen" class="screen state-screen">
-      <div class="state-icon">⏳</div>
+      <div class="wait-scene">
+        <img class="wait-gift" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/gift.webp" alt="">
+        <span class="sparkle sp1">✦</span>
+        <span class="sparkle sp2">✦</span>
+        <span class="sparkle sp3">✦</span>
+        <div class="wait-badge">12.01 OPEN</div>
+      </div>
       <div class="state-title">곧 찾아올게요</div>
       <div class="state-desc">12월 무릎 지식 퀴즈는<br>곧 시작됩니다. 조금만 기다려주세요!</div>
     </div>
