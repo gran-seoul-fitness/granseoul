@@ -237,7 +237,18 @@
     
   }
 
+  // 데모 보기: 주소 뒤에 ?demo 를 붙이면 날짜·참여 기록과 상관없이 퀴즈를 풀어 볼 수 있어요 (시트에 기록 안 됨, 참여 표시 안 남음)
+  //   ?demo=already / ?demo=before / ?demo=closed / ?demo=ok 로 각 화면만 따로 볼 수도 있어요
+  const DEMO = (function(){ const m = location.search.match(/[?&]demo(?:=([a-z]+))?/); return m ? (m[1] || 'form') : null; })();
+  if (DEMO){
+    const bar = document.createElement('div');
+    bar.style.cssText = 'position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:20;padding:6px 14px;border-radius:99px;background:rgba(15,25,60,.85);color:#FFD98A;font-size:12px;font-weight:600;white-space:nowrap';
+    bar.textContent = '데모 화면 · 기록이 남지 않아요';
+    document.body.appendChild(bar);
+  }
+
   (function init(){
+    if (DEMO){ const map={form:'formScreen',ok:'successScreen',already:'alreadyScreen',before:'notStartedScreen',closed:'closedScreen'}; showScreen(map[DEMO]||'formScreen'); return; }
     if (todayKST() < QUIZ_START){ showScreen('notStartedScreen'); return; }
     if (todayKST() > QUIZ_DEADLINE){ showScreen('closedScreen'); return; }
     if (hasParticipated()){ markParticipated(); showScreen('alreadyScreen'); return; }
@@ -277,6 +288,7 @@
           c.style.animationDuration=(1.8+Math.random()*1.6)+'s'; c.style.animationDelay=(Math.random()*.5)+'s';
           document.body.appendChild(c); setTimeout(function(){ c.remove(); },4200); }
       }
+      if (DEMO) return;
       markParticipated();
 
       // 정답을 맞힌 참여 기록을 조용히 시트에 남김 (사용자는 이 과정을 볼 필요 없음)
