@@ -23,7 +23,7 @@
       linear-gradient(rgba(84,114,204,.28),rgba(100,128,212,.34)),
       url('https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/bluetown_soft.webp') center top/cover no-repeat fixed,
       var(--page);
-    min-height:100vh;
+    min-height:100vh;display:flex;
     padding:24px;position:relative;overflow-x:hidden;
   }
   h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.01em;}
@@ -32,7 +32,7 @@
   canvas#snowfx{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0;}
 
   /* ---------- Card shell ---------- */
-  .app{max-width:420px;width:100%;margin:0 auto;position:relative;z-index:1;}
+  .app{max-width:420px;width:100%;margin:auto;position:relative;z-index:1;}
   .issue-tag{
     display:inline-block;font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:2px;
     color:#F6D9A0;background:rgba(246,217,160,.16);border:1px solid rgba(246,217,160,.55);
@@ -104,12 +104,12 @@
   }
   .room-hero .glasses-layer img{width:100%;display:block;}
   .room-hero .talk{
-    position:absolute;left:14px;right:14px;bottom:14px;margin:0;z-index:2;
+    position:absolute;left:14px;right:14px;bottom:40px;margin:0;z-index:2;
   }
   .room-hero .talk::after{display:none;}
   .room-hero::after{
-    content:'';position:absolute;left:0;right:0;bottom:0;height:70px;z-index:1;pointer-events:none;
-    background:linear-gradient(to bottom,rgba(42,22,11,0),rgba(72,100,184,.85));
+    content:'';position:absolute;left:0;right:0;bottom:0;height:140px;z-index:1;pointer-events:none;
+    background:linear-gradient(to bottom,rgba(42,22,11,0) 0%,rgba(60,75,140,.6) 45%,rgba(93,120,195,1) 100%);
   }
   .room-hero .challenge-chip{
     position:absolute;left:58%;top:5%;right:4%;z-index:2;
@@ -178,15 +178,42 @@
     content:'';display:block;margin:0 -22px 24px;height:56px;
     background:linear-gradient(to bottom,#2a160b,var(--card2));
   }
-  .trophy-wrap{width:140px;margin:0 auto 10px;}
+  .success-scene{position:relative;width:230px;height:175px;margin:0 auto 6px;}
+  .trophy-wrap{position:absolute;left:50%;top:0;width:118px;margin:0;transform:translateX(-50%);z-index:2;}
   .trophy-wrap img{
     width:100%;display:block;filter:drop-shadow(0 10px 18px rgba(60,84,120,.3)) saturate(1.6) contrast(1.08);
     animation:trophyBob 2.4s ease-in-out infinite;
   }
   @keyframes trophyBob{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-8px) rotate(-2deg);}}
+  .sc-gift,.sc-cookie{position:absolute;z-index:1;filter:drop-shadow(0 8px 14px rgba(10,20,50,.35));}
+  .sc-gift{left:0;bottom:4px;width:76px;animation:objBob 3s ease-in-out infinite;}
+  .sc-cookie{right:2px;bottom:16px;width:68px;animation:objBob 3.4s ease-in-out .4s infinite;}
+  @keyframes objBob{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-7px) rotate(-4deg);}}
+  .sparkle{position:absolute;color:var(--glow);text-shadow:0 0 6px rgba(246,217,160,.8);animation:twinkle 1.8s ease-in-out infinite;pointer-events:none;}
+  .sparkle.sp1{left:8%;top:6%;font-size:18px;animation-delay:0s;}
+  .sparkle.sp2{right:14%;top:2%;font-size:12px;animation-delay:.5s;}
+  .sparkle.sp3{left:34%;bottom:2%;font-size:11px;animation-delay:1s;}
+  .sparkle.sp4{right:26%;bottom:38%;font-size:14px;animation-delay:1.4s;}
+  @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.7);}50%{opacity:1;transform:scale(1.2);}}
   .success-title,.state-title{font-size:21px;color:var(--glow);margin-bottom:10px;}
   .success-desc,.state-desc{font-size:14px;color:#E8F0FB;line-height:1.7;}
   .state-icon{font-size:40px;margin-bottom:14px;}
+  .wait-scene{position:relative;width:150px;height:170px;margin:0 auto 16px;}
+  .wait-gift{
+    width:118px;display:block;margin:0 auto;position:relative;z-index:1;
+    filter:drop-shadow(0 10px 20px rgba(10,20,50,.4));
+    animation:objBob 3s ease-in-out infinite;
+  }
+  .wait-badge{
+    position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:2;
+    background:linear-gradient(#FFCB84,#F2963F);color:#3B1E08;
+    font-family:var(--display);font-weight:700;font-size:12.5px;letter-spacing:.03em;
+    padding:5px 16px;border-radius:999px;white-space:nowrap;
+    box-shadow:0 5px 0 #B4642C,0 8px 16px rgba(0,0,0,.25);
+  }
+  .wait-scene .sparkle.sp1{left:2%;top:10%;}
+  .wait-scene .sparkle.sp2{right:6%;top:18%;}
+  .wait-scene .sparkle.sp3{left:16%;bottom:28%;}
   .reward-box{
     margin-top:18px;padding:14px 16px;border-radius:16px;
     background:rgba(255,255,255,.1);border:1px dashed rgba(255,255,255,.4);
@@ -240,7 +267,13 @@
     </div>
 
     <div id="notStartedScreen" class="screen state-screen">
-      <div class="state-icon">⏳</div>
+      <div class="wait-scene">
+        <img class="wait-gift" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/gift.webp" alt="">
+        <span class="sparkle sp1">✦</span>
+        <span class="sparkle sp2">✦</span>
+        <span class="sparkle sp3">✦</span>
+        <div class="wait-badge">12.01 OPEN</div>
+      </div>
       <div class="state-title">곧 찾아올게요</div>
       <div class="state-desc">12월 무릎 지식 퀴즈는<br>곧 시작됩니다. 조금만 기다려주세요!</div>
     </div>
@@ -299,10 +332,18 @@
     </div>
 
     <div id="successScreen" class="screen success-screen">
-      <div class="trophy-wrap">
-        <img src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/ic_trophy.webp" alt="트로피">
+      <div class="success-scene">
+        <img class="sc-gift" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/gift.webp" alt="">
+        <div class="trophy-wrap">
+          <img src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/ic_trophy.webp" alt="트로피">
+        </div>
+        <img class="sc-cookie" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/choco1.webp" alt="">
+        <span class="sparkle sp1">✦</span>
+        <span class="sparkle sp2">✦</span>
+        <span class="sparkle sp3">✦</span>
+        <span class="sparkle sp4">✦</span>
       </div>
-      <div class="success-title">정답입니다!</div>
+      <div class="success-title">정답이라네!</div>
       <div class="success-desc">7층 데스크에 방문하시어<br>참여를 확인받아 주세요.</div>
       <div class="reward-box">
         <div class="reward-main">리워드는 참여 확인 후<br>순차적으로 지급 예정입니다.</div>
@@ -356,7 +397,7 @@
   const QUIZ_VOL = "Vol.04";
 
   // 이 날짜부터 참여 가능. 그 전에는 "아직 시작 전" 화면만 보여줍니다.
-  const QUIZ_START = '2026-11-01';
+  const QUIZ_START = '2026-12-01';
 
   // 이 날짜까지 참여 가능, 다음날부터 "참여기간 종료" 화면으로 전환됩니다.
   const QUIZ_DEADLINE = '2099-12-31';
