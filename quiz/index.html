@@ -63,9 +63,12 @@
   .footer-note{margin-top:14px;font-size:11.5px;color:rgba(255,255,255,.7)}
   @media (prefers-reduced-motion:reduce){.screen.active{animation:none}}
 
-  .ask{margin-top:18px;padding:14px 14px 4px;border-top:1px solid rgba(255,255,255,.25);font-size:14px;line-height:1.65;color:#fff;word-break:keep-all}
+  .ask{margin-top:18px;padding:14px 0 4px;border-top:1px solid rgba(255,255,255,.25);font-size:14px;line-height:1.65;color:#fff;word-break:keep-all}
   .ask b{display:block;font-family:var(--display);font-size:15px;color:var(--glow);margin-bottom:4px}
   #successScreen.active .ask,#alreadyScreen.active .ask{animation:rise .5s ease .6s both}
+  .state-desc,.reward,.ask,.talk,.note,.question{word-break:keep-all;text-wrap:pretty}
+  .state-desc .sub{display:inline-block;margin-top:6px;font-size:12.5px;color:rgba(255,255,255,.75)}
+  @media (max-width:350px){.ask,.state-desc,.reward{font-size:13px}.question{font-size:15.5px}}
   /* ---- 모션 ---- */
   .santa img{animation:santaNod 3.6s ease-in-out infinite;transform-origin:50% 90%}
   @keyframes santaNod{0%,100%{transform:rotate(0) translateY(0)}20%{transform:rotate(-6deg) translateY(-1px)}40%{transform:rotate(0) translateY(0)}55%{transform:rotate(4deg) translateY(-2px)}70%{transform:rotate(0)}}
@@ -118,7 +121,7 @@
         <img src="https://gran-seoul-fitness.github.io/gran-seoul-12/assets/gift.webp" alt="">
         <div class="badge">12.01 OPEN</div>
         <div class="state-title">곧 찾아올게요</div>
-        <div class="state-desc">12월 무릎 지식 퀴즈는 12월 1일에 시작한다네.<br>(참여 기간 12.1 ~ 12.15)<br>조금만 기다려 주게!</div>
+        <div class="state-desc">12월 무릎 지식 퀴즈는<br>12월 1일에 시작한다네.<br>조금만 기다려 주게!<br><span class="sub">참여 기간 12.1 ~ 12.15</span></div>
       </div>
     </div>
 
@@ -133,7 +136,7 @@
     </div>
 
     <div id="formScreen" class="screen active">
-      <p class="talk">“무릎에 관한 퀴즈를 낼 테니, 한 번 맞춰보게!”</p>
+      <p class="talk">“무릎에 관한 퀴즈를 낼 테니,<br>한 번 맞춰보게!”</p>
       <div class="q-label">QUIZ</div>
       <div class="question">무릎뼈 아래 힘줄 뒤, 신경이 아주 많이 분포되어 무릎의 쿠션 역할을 하는 것은?</div>
 
@@ -150,7 +153,7 @@
           <div><label for="companyInput">입주사</label><select id="companyInput" required><option value="" disabled selected>선택</option></select></div>
         </div>
         <button type="submit" class="btn" id="submitBtn">정답 제출하기</button>
-        <p class="note">참여 기간 12.1(화) ~ 12.15(화) · 리워드는 12.15 이후 수령<br>* 그랑서울 피트니스 멤버십 회원만 참여 가능합니다.</p>
+        <p class="note">참여 기간 12.1(화) ~ 12.15(화)<br>리워드는 12.15 이후 7층 데스크에서 수령<br>* 그랑서울 피트니스 멤버십 회원만 참여 가능</p>
       </form>
     </div>
 
@@ -158,9 +161,9 @@
       <div class="state">
         <img src="https://gran-seoul-fitness.github.io/gran-seoul-12/assets/ic_trophy.webp" alt="트로피">
         <div class="state-title">정답이라네!</div>
-        <div class="state-desc">7층 데스크에 방문하시어 참여를 확인받아 주세요.</div>
+        <div class="state-desc">7층 데스크에 방문하시어<br>참여를 확인받아 주세요.</div>
         <div class="reward">리워드는 <b>12월 15일 이후</b>부터<br>7층 데스크에서 받으실 수 있어요.<br>참여해주셔서 감사합니다!</div>
-        <div class="ask"><b>그런데 말일세…</b>자네, 올해 마지막 12월을<br>즐겁고 건강하게 보내고 싶지 않은가?<br>그렇다면 이 산타 좀 도와주겠나? 허허!</div>
+        <div class="ask"><b>그런데 말일세…</b>자네, 올해 마지막 12월을<br>즐겁고 건강하게 보내고 싶지 않은가?<br>허허, 그렇다면<br>이 산타 좀 도와주겠나?</div>
         <a class="btn light" href="https://gran-seoul-fitness.github.io/gran-seoul-12/">산타의 다이어트 도와주러 가기 →</a>
       </div>
     </div>
