@@ -95,6 +95,19 @@
   }
   .room-hero img.base{width:100%;aspect-ratio:1080/1350;object-fit:cover;display:block;animation:roomGlow 4s ease-in-out infinite;}
   @keyframes roomGlow{0%,100%{transform:scale(1);}50%{transform:scale(1.025);}}
+  .room-hero .arm-layer{
+    position:absolute;left:39.259%;top:33.63%;width:33.056%;height:25.037%;
+    object-fit:contain;pointer-events:none;z-index:1;
+  }
+  .room-hero .arm-layer-r{
+    position:absolute;left:62.593%;top:41.037%;width:28.426%;height:17.333%;
+    object-fit:contain;pointer-events:none;z-index:1;
+  }
+  .room-hero .glasses-layer{
+    position:absolute;left:60.2%;top:38%;width:12.9%;z-index:1;
+    filter:drop-shadow(0 2px 1.5px rgba(60,30,10,.45));
+  }
+  .room-hero .glasses-layer img{width:100%;display:block;}
   .room-hero .talk{
     position:absolute;left:14px;right:14px;bottom:64px;margin:0;z-index:2;
   }
@@ -284,7 +297,10 @@
 
     <div id="formScreen" class="screen active">
       <div class="room-hero">
-        <img class="base" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/building.webp" alt="그랑서울 피트니스 간판이 걸린 산타의 집 외관, 눈 쌓인 지붕과 따뜻하게 불이 켜진 창문들">
+        <img class="base" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/room1.webp" alt="벽난로 앞 안락의자에 앉은 산타와 바닥에 놓인 초코칩 쿠키들">
+        <img class="arm-layer" id="santaArm" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/s1_L_rest.webp" alt="">
+        <img class="arm-layer-r" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/s1_R_rest.webp" alt="">
+        <div class="glasses-layer" id="santaGlasses"><img src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/glasses.webp" alt=""></div>
         <a class="challenge-chip" href="https://gran-seoul-fitness.github.io/gran-seoul-12/">마지막 건강챌린지<br>하러 가기 →</a>
         <div class="talk">
           <div class="who">산타</div>
@@ -345,7 +361,40 @@
   <div class="footer-note">그랑서울 피트니스 × 12월 파이널 챌린지</div>
 </div>
 
-<script>  // Wellness Letter 스프레드시트용 Apps Script 웹앱 URL (궁금한 내용 폼과 동일한 백엔드를 재사용, action 값으로 구분됨)
+<script>
+  // 산타의 집 장면: 안경을 밀어 올리는 팔 제스처를 계속 반복 (레퍼런스 사이트의 pushUp() 동작을 그대로 재사용)
+  (function(){
+    const armEl = document.getElementById('santaArm');
+    const glassesEl = document.getElementById('santaGlasses');
+    if (!armEl || !glassesEl) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const BASE = 'https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/';
+    function wait(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+    function playArm(seq, ms){
+      return seq.reduce(function(p, n){
+        return p.then(function(){ armEl.src = BASE + 's1_L_' + n + '.webp'; return wait(ms); });
+      }, Promise.resolve());
+    }
+    function glassesY(v, d){
+      glassesEl.style.transition = 'transform ' + d + 'ms ease-out';
+      glassesEl.style.transform = 'translateY(' + v + '%)';
+      return wait(d);
+    }
+    async function pushUpLoop(){
+      while (true){
+        await wait(1800);
+        await glassesY(14, 260);
+        await playArm(['p35','p70','p100'], 95);
+        await glassesY(-6, 180);
+        await wait(220);
+        await playArm(['p70','p35','rest'], 95);
+        await glassesY(0, 300);
+      }
+    }
+    pushUpLoop();
+  })();
+
+  // Wellness Letter 스프레드시트용 Apps Script 웹앱 URL (궁금한 내용 폼과 동일한 백엔드를 재사용, action 값으로 구분됨)
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywp0lF9kWDiSI0GcfiqFS5EOQ0R8nXZ76mVnvSKnTPcQTEWtQDO0lAEdbKbbAyNFl7bQ/exec";
 
   // 이 값을 매달 바꿔주세요 (Vol.04 → Vol.05 ...). 바꾸면 새 호에서 다시 참여 가능해집니다.
