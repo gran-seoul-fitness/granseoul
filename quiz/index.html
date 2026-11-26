@@ -48,6 +48,7 @@
     content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
     background:radial-gradient(130% 110% at 50% 20%,transparent 50%,rgba(72,100,184,.3) 100%);
   }
+  .app.night .head{background:linear-gradient(to bottom,#050b1c 0%,#0a1530 55%,#14284d 100%);}
   .head h1{font-size:25px;line-height:1.35;margin-top:8px;color:#fff;text-shadow:0 0 14px rgba(200,220,255,.75),0 0 2px rgba(255,255,255,.6);}
   .head h1 span{color:var(--glow);}
   .head p{margin-top:8px;font-size:13.5px;color:var(--mist);}
@@ -458,6 +459,7 @@
   function showScreen(id){
     document.querySelectorAll('.screen').forEach(function(el){ el.classList.remove('active'); });
     document.getElementById(id).classList.add('active');
+    document.querySelector('.app').classList.toggle('night', id === 'successScreen' || id === 'notStartedScreen');
   }
 
   (function init(){
