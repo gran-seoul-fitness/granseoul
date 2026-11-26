@@ -65,7 +65,7 @@
 
   .ask{margin-top:18px;padding:14px 14px 4px;border-top:1px solid rgba(255,255,255,.25);font-size:14px;line-height:1.65;color:#fff;word-break:keep-all}
   .ask b{display:block;font-family:var(--display);font-size:15px;color:var(--glow);margin-bottom:4px}
-  #successScreen.active .ask{animation:rise .5s ease .6s both}
+  #successScreen.active .ask,#alreadyScreen.active .ask{animation:rise .5s ease .6s both}
   /* ---- 모션 ---- */
   .santa img{animation:santaNod 3.6s ease-in-out infinite;transform-origin:50% 90%}
   @keyframes santaNod{0%,100%{transform:rotate(0) translateY(0)}20%{transform:rotate(-6deg) translateY(-1px)}40%{transform:rotate(0) translateY(0)}55%{transform:rotate(4deg) translateY(-2px)}70%{transform:rotate(0)}}
@@ -127,7 +127,8 @@
     </div>
 
     <div id="alreadyScreen" class="screen">
-      <div class="state"><div class="icon">✓</div><div class="state-title">이미 참여해주셨어요</div><div class="state-desc">소중한 참여 감사합니다.<br>리워드는 <b>12월 15일 이후</b>부터 7층 데스크에서 받으실 수 있어요.</div>
+      <div class="state"><div class="icon">✓</div><div class="state-title">이미 참여해주셨어요</div><div class="state-desc">소중한 참여 감사합니다.<br>리워드는 <b>12월 15일 이후</b>부터<br>7층 데스크에서 받으실 수 있어요.</div>
+        <div class="ask"><b>허허, 자네 다시 왔구먼!</b>혹시 마음이 바뀌었나?<br>아직 늦지 않았다네.<br>이 산타의 다이어트, 같이 해 주겠나?</div>
         <a class="btn light" href="https://gran-seoul-fitness.github.io/gran-seoul-12/">산타의 다이어트 도와주러 가기 →</a></div>
     </div>
 
