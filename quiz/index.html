@@ -4,256 +4,60 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>12월 무릎 지식 퀴즈 | 그랑서울 피트니스</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --page:#4A68C4;--glow:#F6D9A0;--mist:#BFD0F0;
-    --card1:rgba(104,134,214,.82);--card2:rgba(72,100,184,.8);
-    --display:"Hahmlet","Noto Serif KR",serif;
-    --body:"IBM Plex Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo",sans-serif;
-    color-scheme:light;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-  html,body{height:100%;}
-  body{
-    font-family:var(--body);font-size:15px;line-height:1.6;color:#fff;
-    background:
-      linear-gradient(rgba(84,114,204,.28),rgba(100,128,212,.34)),
-      url('https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/bluetown_soft.webp') center top/cover no-repeat fixed,
-      var(--page);
-    min-height:100vh;display:flex;
-    position:relative;overflow-x:hidden;
-  }
-  h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.01em;}
-
-  /* ---------- Snow ---------- */
-  canvas#snowfx{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0;}
-
-  /* ---------- Card shell ---------- */
-  .app{width:100%;margin:auto;position:relative;z-index:1;}
-  .issue-tag{
-    display:inline-block;font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:2px;
-    color:#F6D9A0;background:rgba(246,217,160,.16);border:1px solid rgba(246,217,160,.55);
-    padding:4px 12px;border-radius:20px;margin-bottom:12px;
-  }
-  .eyebrow{font-size:11px;letter-spacing:.28em;color:var(--mist);text-transform:uppercase;}
-  .head{
-    position:relative;text-align:center;
-    margin:-30px -22px 0;padding:30px 22px 20px;
-    background:linear-gradient(to bottom,#0b0604 0%,#1c0f08 55%,#2a160b 100%);
-  }
-  .head::after{
-    content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
-    background:radial-gradient(130% 110% at 50% 20%,transparent 50%,rgba(72,100,184,.3) 100%);
-  }
-  .app.night .head{background:linear-gradient(to bottom,#01041c 0%,#000a29 100%);}
-  .head h1{font-size:25px;line-height:1.35;margin-top:8px;color:#fff;text-shadow:0 0 14px rgba(200,220,255,.75),0 0 2px rgba(255,255,255,.6);}
-  .head h1 span{color:var(--glow);}
-  .head p{margin-top:8px;font-size:13.5px;color:var(--mist);}
-
-  .glass{
-    position:relative;color:#fff;
-    background:linear-gradient(160deg,var(--card1),var(--card2));
-    padding:30px 22px 26px;
-    min-height:100vh;
-  }
-  .glass::before{
-    content:'';position:absolute;left:-3px;right:-3px;top:0;aspect-ratio:8/1;
-    transform:translateY(-51%);
-    background:url('https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/cap1.webp') center top/100% 100% no-repeat;
-    filter:drop-shadow(0 3px 3px rgba(20,40,90,.3));pointer-events:none;z-index:2;
-  }
-  .glass h1,.glass h2{text-shadow:0 0 14px rgba(200,220,255,.75),0 0 2px rgba(255,255,255,.6);}
-
-  .screen{display:none;}
-  .screen.active{display:block;animation:screenFadeIn .5s ease;}
-  @keyframes screenFadeIn{0%{opacity:0;transform:translateY(6px);}100%{opacity:1;transform:translateY(0);}}
-
-  .talk{
-    position:relative;
-    background:rgba(255,255,255,.94);
-    border-radius:16px;padding:16px 18px 14px;margin-bottom:24px;
-    box-shadow:0 14px 30px rgba(6,14,36,.35),inset 0 2px 0 rgba(255,255,255,.6);
-    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-  }
-  .talk::after{
-    content:'';position:absolute;top:-8px;right:30%;width:18px;height:18px;
-    transform:rotate(45deg);border-radius:4px 0 0 0;background:rgba(255,255,255,.94);
-  }
-  .who{display:inline-block;font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.04em;
-    padding:2px 10px;border-radius:99px;background:#1C3561;color:var(--glow);margin-bottom:8px;}
-  .talk p{font-size:14.5px;line-height:1.7;color:#1C3561;}
-
-  /* ---------- Room hero (quiz question bubble over the Santa scene) ---------- */
-  .room-hero{
-    position:relative;margin:0 -22px 20px;overflow:hidden;z-index:1;
-  }
-  .room-hero img.base{width:100%;aspect-ratio:1080/1350;object-fit:cover;display:block;animation:roomGlow 4s ease-in-out infinite;}
-  @keyframes roomGlow{0%,100%{transform:scale(1);}50%{transform:scale(1.025);}}
-  .room-hero .arm-layer{
-    position:absolute;left:39.259%;top:33.63%;width:33.056%;height:25.037%;
-    object-fit:contain;pointer-events:none;z-index:1;
-  }
-  .room-hero .arm-layer-r{
-    position:absolute;left:62.593%;top:41.037%;width:28.426%;height:17.333%;
-    object-fit:contain;pointer-events:none;z-index:1;
-  }
-  .room-hero .glasses-layer{
-    position:absolute;left:60.2%;top:38%;width:12.9%;z-index:1;
-    filter:drop-shadow(0 2px 1.5px rgba(60,30,10,.45));
-  }
-  .room-hero .glasses-layer img{width:100%;display:block;}
-  .room-hero .talk{
-    position:absolute;left:14px;right:14px;bottom:64px;margin:0;z-index:2;
-  }
-  .room-hero .talk::after{display:none;}
-  .room-hero::after{
-    content:'';position:absolute;left:0;right:0;bottom:0;height:72px;z-index:1;pointer-events:none;
-    background:linear-gradient(to bottom,rgba(42,22,11,0),rgba(93,120,195,1));
-  }
-  .room-hero .challenge-chip{
-    position:absolute;left:58%;top:5%;right:4%;z-index:2;
-    display:block;text-align:center;text-decoration:none;
-    padding:10px 10px;border-radius:14px;
-    font-family:var(--display);font-weight:600;font-size:12.5px;line-height:1.4;color:#fff;
-    background:rgba(20,10,5,.52);border:1px solid rgba(255,214,160,.55);
-    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
-    text-shadow:0 1px 3px rgba(0,0,0,.5);
-  }
-
-  label{display:block;font-family:var(--display);font-size:11px;font-weight:600;letter-spacing:1px;color:var(--glow);text-transform:uppercase;margin-bottom:8px;}
-  .field{margin-bottom:16px;}
-  .field-row{display:flex;gap:10px;}
-  .field-row .field{flex:1;min-width:0;margin-bottom:16px;}
-  .field-row select,.field-row input{padding-left:12px;padding-right:30px;}
-  input[type="text"],select{
-    width:100%;background:rgba(255,255,255,.92);
-    border:1px solid rgba(255,255,255,.7);border-radius:14px;padding:13px 16px;
-    font-family:var(--body);font-size:15px;color:#1E3557;
-  }
-  input[type="text"]::placeholder{color:#8DA0C4;}
-  input[type="text"]:focus,select:focus{outline:2px solid var(--glow);outline-offset:1px;}
-  select{appearance:none;-webkit-appearance:none;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%238DA0C4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat:no-repeat;background-position:right 16px center;padding-right:38px;
-  }
-  select:invalid{color:#8DA0C4;}
-
-  .choice-list{display:flex;flex-direction:column;gap:8px;}
-  .choice-btn{
-    width:100%;text-align:left;display:flex;align-items:center;gap:12px;
-    border:1px solid rgba(255,255,255,.32);background:rgba(255,255,255,.1);
-    color:#fff;font-family:var(--body);font-size:14px;
-    padding:10px 16px;border-radius:14px;cursor:pointer;
-    transition:border-color .15s ease,background .15s ease;
-  }
-  .c-ic{
-    display:flex;align-items:center;justify-content:center;flex:none;
-    width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.14);
-    border:1px solid rgba(255,255,255,.3);color:#fff;
-  }
-  .choice-btn.selected{
-    border-color:var(--glow);background:rgba(246,217,160,.22);font-weight:600;color:var(--glow);
-  }
-  .choice-btn.selected .c-ic{background:rgba(246,217,160,.3);color:var(--glow);}
-
-  .btn{
-    display:block;width:100%;border:1.5px solid rgba(255,255,255,.55);cursor:pointer;margin-top:14px;
-    padding:15px;border-radius:999px;
-    font-family:var(--display);font-weight:600;font-size:16px;color:#fff;
-    background:linear-gradient(rgba(255,255,255,.22),rgba(255,255,255,.07) 55%,rgba(255,255,255,.12));
-    -webkit-backdrop-filter:blur(12px) saturate(1.5);backdrop-filter:blur(12px) saturate(1.5);
-    text-shadow:0 1px 2px rgba(10,24,56,.45);
-    box-shadow:inset 0 1.5px 1px rgba(255,255,255,.75),inset 0 -2px 3px rgba(255,255,255,.28),inset 0 10px 18px rgba(255,255,255,.08),inset 0 -10px 16px rgba(10,24,60,.18),0 8px 20px rgba(4,12,34,.32);
-    transition:transform .15s;
-  }
-  .btn:active{transform:scale(.98);box-shadow:inset 0 1.5px 1px rgba(255,255,255,.6),inset 0 -2px 3px rgba(255,255,255,.2),0 3px 10px rgba(4,12,34,.3);}
-
-  .toast{color:#FFC9BE;font-size:12.5px;margin-top:10px;text-align:center;min-height:0;display:none;}
-  .toast.show{display:block;}
-
-  /* ---------- Success / state screens ---------- */
-  .success-screen,.state-screen{position:relative;text-align:center;}
-  .success-screen::before,.state-screen::before{
-    content:'';display:block;margin:0 -22px 24px;height:56px;
-    background:linear-gradient(to bottom,#2a160b,rgba(93,120,195,1));
-  }
-  .has-hero::before{display:none;}
-  .has-hero .room-hero{margin-bottom:24px;}
-  .success-scene{position:relative;width:230px;height:175px;margin:0 auto 6px;}
-  .trophy-wrap{position:absolute;left:50%;top:0;width:118px;margin:0;transform:translateX(-50%);z-index:2;}
-  .trophy-wrap img{
-    width:100%;display:block;filter:drop-shadow(0 10px 18px rgba(60,84,120,.3)) saturate(1.6) contrast(1.08);
-    animation:trophyBob 2.4s ease-in-out infinite;
-  }
-  @keyframes trophyBob{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-8px) rotate(-2deg);}}
-  .sc-gift,.sc-cookie{position:absolute;z-index:1;filter:drop-shadow(0 8px 14px rgba(10,20,50,.35));}
-  .sc-gift{left:0;bottom:4px;width:76px;animation:objBob 3s ease-in-out infinite;}
-  .sc-cookie{right:2px;bottom:16px;width:68px;animation:objBob 3.4s ease-in-out .4s infinite;}
-  @keyframes objBob{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-7px) rotate(-4deg);}}
-  .sparkle{position:absolute;color:var(--glow);text-shadow:0 0 6px rgba(246,217,160,.8);animation:twinkle 1.8s ease-in-out infinite;pointer-events:none;}
-  .sparkle.sp1{left:8%;top:6%;font-size:18px;animation-delay:0s;}
-  .sparkle.sp2{right:14%;top:2%;font-size:12px;animation-delay:.5s;}
-  .sparkle.sp3{left:34%;bottom:2%;font-size:11px;animation-delay:1s;}
-  .sparkle.sp4{right:26%;bottom:38%;font-size:14px;animation-delay:1.4s;}
-  @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.7);}50%{opacity:1;transform:scale(1.2);}}
-  .success-title,.state-title{font-size:21px;color:var(--glow);margin-bottom:10px;}
-  .success-desc,.state-desc{font-size:14px;color:#E8F0FB;line-height:1.7;}
-  .state-icon{font-size:40px;margin-bottom:14px;}
-  .wait-scene{position:relative;width:150px;height:170px;margin:0 auto 16px;}
-  .wait-gift{
-    width:118px;display:block;margin:0 auto;position:relative;z-index:1;
-    filter:drop-shadow(0 10px 20px rgba(10,20,50,.4));
-    animation:objBob 3s ease-in-out infinite;
-  }
-  .wait-badge{
-    position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:2;
-    background:linear-gradient(#FFCB84,#F2963F);color:#3B1E08;
-    font-family:var(--display);font-weight:700;font-size:12.5px;letter-spacing:.03em;
-    padding:5px 16px;border-radius:999px;white-space:nowrap;
-    box-shadow:0 5px 0 #B4642C,0 8px 16px rgba(0,0,0,.25);
-  }
-  .wait-scene .sparkle.sp1{left:2%;top:10%;}
-  .wait-scene .sparkle.sp2{right:6%;top:18%;}
-  .wait-scene .sparkle.sp3{left:16%;bottom:28%;}
-  .reward-box{
-    margin-top:18px;padding:14px 16px;border-radius:16px;
-    background:rgba(255,255,255,.1);border:1px dashed rgba(255,255,255,.4);
-  }
-  .reward-main{font-size:13px;color:var(--glow);font-weight:600;line-height:1.7;}
-  .reward-location{margin-top:6px;font-size:12px;color:#E8F0FB;}
-
-  /* ---------- Santa promo CTA ---------- */
-  .santa-promo{
-    margin-top:18px;position:relative;
-    background:linear-gradient(160deg,var(--card1),var(--card2));
-    border:1px solid rgba(255,255,255,.6);border-radius:20px;
-    padding:18px 18px 20px;text-align:center;overflow:visible;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 0 30px rgba(255,255,255,.12),0 0 28px rgba(190,210,255,.35),0 18px 40px rgba(30,50,120,.3);
-  }
-  .santa-promo::before{
-    content:'';position:absolute;left:-3px;right:-3px;top:0;aspect-ratio:8/1;
-    transform:translateY(-51%);
-    background:url('https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/cap2.webp') center top/100% 100% no-repeat;
-    filter:drop-shadow(0 3px 3px rgba(20,40,90,.3));pointer-events:none;z-index:2;
-  }
-  .santa-promo .santa-line{font-family:var(--display);font-weight:700;font-size:15px;color:#fff;text-shadow:0 0 14px rgba(200,220,255,.75),0 0 2px rgba(255,255,255,.6);margin:6px 0 4px;}
-  .santa-promo .santa-sub{font-size:12.5px;color:#E8F0FB;margin:4px 0 14px;}
-  .santa-btn{
-    display:block;width:100%;border:1.5px solid rgba(255,255,255,.55);cursor:pointer;text-decoration:none;
-    margin-top:12px;padding:15px;border-radius:999px;
-    font-family:var(--display);font-weight:600;font-size:17px;color:#fff;
-    background:linear-gradient(rgba(255,255,255,.22),rgba(255,255,255,.07) 55%,rgba(255,255,255,.12));
-    -webkit-backdrop-filter:blur(12px) saturate(1.5);backdrop-filter:blur(12px) saturate(1.5);
-    text-shadow:0 1px 2px rgba(10,24,56,.45);
-    box-shadow:inset 0 1.5px 1px rgba(255,255,255,.75),inset 0 -2px 3px rgba(255,255,255,.28),inset 0 10px 18px rgba(255,255,255,.08),inset 0 -10px 16px rgba(10,24,60,.18),0 8px 20px rgba(4,12,34,.32);
-    transition:transform .15s;
-  }
-  .santa-btn:active{transform:scale(.98);box-shadow:inset 0 1.5px 1px rgba(255,255,255,.6),inset 0 -2px 3px rgba(255,255,255,.2),0 3px 10px rgba(4,12,34,.3);}
-
-  .footer-note{margin-top:20px;text-align:center;font-size:11px;color:#BFD0F0;opacity:.85;}
+  :root{--display:'Hahmlet',serif;--body:'IBM Plex Sans KR',system-ui,sans-serif;--navy:#1C3561;--glow:#FFD98A;}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{min-height:100%}
+  body{font-family:var(--body);color:#fff;font-size:15px;line-height:1.6;
+    background:#4A68C4 url('https://gran-seoul-fitness.github.io/gran-seoul-12/assets/bluetown_soft.webp') center top/cover no-repeat fixed;}
+  body::before{content:'';position:fixed;inset:0;background:linear-gradient(180deg,rgba(40,62,140,.25),rgba(40,62,140,.55));pointer-events:none}
+  #snowfx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+  .app{position:relative;z-index:2;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 16px 20px}
+  .glass{width:100%;max-width:420px;border-radius:28px;padding:22px 20px 22px;background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,.09));
+    border:1.5px solid rgba(255,255,255,.45);box-shadow:0 18px 40px rgba(12,28,80,.35),inset 0 1px 0 rgba(255,255,255,.5);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .head{display:flex;align-items:center;gap:12px}
+  .santa{flex:none;width:68px;height:68px;border-radius:50%;overflow:hidden;background:rgba(255,255,255,.25);border:2px solid rgba(255,255,255,.7)}
+  .santa img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+  .eyebrow{font-size:10.5px;letter-spacing:.18em;color:rgba(255,255,255,.75)}
+  h1{font-family:var(--display);font-weight:700;font-size:23px;line-height:1.25;letter-spacing:-.01em}
+  h1 small{display:inline-block;font-family:var(--body);font-size:11px;font-weight:600;padding:2px 8px;margin-left:6px;border-radius:99px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);vertical-align:middle;letter-spacing:0}
+  .screen{display:none}.screen.active{display:block;animation:fade .35s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .talk{margin:14px 0 0;font-size:13.5px;color:#E8F0FB}
+  .q-label{margin:16px 0 8px;font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--glow)}
+  .question{padding:16px 16px;border-radius:18px;background:rgba(255,255,255,.94);color:var(--navy);font-size:16.5px;font-weight:600;line-height:1.6;word-break:keep-all;box-shadow:0 6px 16px rgba(12,28,80,.18)}
+  .choice-list{display:grid;gap:8px;margin-top:12px}
+  .choice-btn{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.1);color:#fff;font:inherit;font-size:15px;font-weight:500;text-align:left;cursor:pointer;transition:background .15s,border-color .15s,transform .1s}
+  .choice-btn:active{transform:scale(.99)}
+  .choice-btn .n{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.5)}
+  .choice-btn.selected{background:#fff;border-color:#fff;color:var(--navy);font-weight:700}
+  .choice-btn.selected .n{background:var(--navy);border-color:var(--navy);color:#fff}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+  label{display:block;font-size:12px;font-weight:600;color:rgba(255,255,255,.85);margin-bottom:6px}
+  input,select{width:100%;height:46px;padding:0 12px;border-radius:12px;border:1.5px solid rgba(255,255,255,.6);background:rgba(255,255,255,.94);color:var(--navy);font:inherit;font-size:15px;appearance:none;-webkit-appearance:none}
+  select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231C3561' stroke-width='1.8' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:30px}
+  input::placeholder{color:#8A98B5}
+  .btn{display:block;width:100%;margin-top:16px;height:52px;border-radius:999px;border:1.5px solid rgba(255,255,255,.8);
+    background:linear-gradient(180deg,#6C8DE6,#3F63C9);color:#fff;font:inherit;font-size:16px;font-weight:700;cursor:pointer;
+    box-shadow:0 10px 22px rgba(20,40,120,.35),inset 0 2px 1px rgba(255,255,255,.55),inset 0 -3px 6px rgba(10,30,100,.25);text-align:center;text-decoration:none;line-height:49px}
+  .btn.light{background:linear-gradient(180deg,#fff,#E2EBFA);color:var(--navy)}
+  .note{margin-top:10px;text-align:center;font-size:11.5px;color:rgba(255,255,255,.75)}
+  .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:9;padding:11px 18px;border-radius:99px;background:rgba(15,25,60,.9);color:#fff;font-size:14px;transition:.25s;white-space:nowrap}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+  .state{text-align:center;padding:10px 4px 4px}
+  .state img{width:150px;height:auto;margin:6px auto 2px;display:block;filter:drop-shadow(0 10px 16px rgba(10,25,80,.35))}
+  .state .icon{font-size:44px;margin:10px 0 4px}
+  .badge{display:inline-block;margin:4px 0 8px;padding:4px 12px;border-radius:99px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.5);font-size:12px;font-weight:700;letter-spacing:.08em}
+  .state-title{font-family:var(--display);font-size:22px;font-weight:700;margin-top:4px}
+  .state-desc{margin-top:6px;font-size:14px;color:#E8F0FB;word-break:keep-all}
+  .reward{word-break:keep-all;margin-top:14px;padding:13px 14px;border-radius:16px;border:1.5px dashed rgba(255,255,255,.55);background:rgba(255,255,255,.1);font-size:13.5px;line-height:1.6}
+  .footer-note{margin-top:14px;font-size:11.5px;color:rgba(255,255,255,.7)}
+  @media (prefers-reduced-motion:reduce){.screen.active{animation:none}}
 </style>
 </head>
 <body>
@@ -264,141 +68,69 @@
   <div class="glass">
 
     <div class="head">
-      <div class="issue-tag">12월 · 05호</div>
-      <div class="eyebrow">GRAN SEOUL FITNESS</div>
-      <h1>12월<br><span>무릎 지식 퀴즈</span></h1>
-      <p>겨울철 무릎 건강, 얼마나 알고 계신가요?</p>
-    </div>
-
-    <div id="notStartedScreen" class="screen state-screen has-hero">
-      <div class="room-hero">
-        <img class="base" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/building.webp" alt="그랑서울 피트니스 간판이 걸린 산타의 집 외관, 눈 쌓인 지붕과 따뜻하게 불이 켜진 창문들">
+      <div class="santa"><img src="santa.webp" alt="안경 쓴 산타"></div>
+      <div>
+        <div class="eyebrow">GRAN SEOUL FITNESS</div>
+        <h1>무릎 지식 퀴즈<small>12월 · 05호</small></h1>
       </div>
-      <div class="wait-scene">
-        <img class="wait-gift" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/gift.webp" alt="">
-        <span class="sparkle sp1">✦</span>
-        <span class="sparkle sp2">✦</span>
-        <span class="sparkle sp3">✦</span>
-        <div class="wait-badge">12.01 OPEN</div>
+    </div>
+
+    <div id="notStartedScreen" class="screen">
+      <div class="state">
+        <img src="https://gran-seoul-fitness.github.io/gran-seoul-12/assets/gift.webp" alt="">
+        <div class="badge">12.01 OPEN</div>
+        <div class="state-title">곧 찾아올게요</div>
+        <div class="state-desc">12월 무릎 지식 퀴즈는 12월 1일에 시작한다네.<br>조금만 기다려 주게!</div>
       </div>
-      <div class="state-title">곧 찾아올게요</div>
-      <div class="state-desc">12월 무릎 지식 퀴즈는<br>곧 시작됩니다. 조금만 기다려주세요!</div>
     </div>
 
-    <div id="closedScreen" class="screen state-screen">
-      <div class="state-icon">❄️</div>
-      <div class="state-title">퀴즈가 마감되었습니다</div>
-      <div class="state-desc">참여해주신 모든 분들께 감사드립니다.</div>
+    <div id="closedScreen" class="screen">
+      <div class="state"><div class="icon">❄️</div><div class="state-title">퀴즈가 마감되었습니다</div><div class="state-desc">참여해주신 모든 분들께 감사드립니다.</div></div>
     </div>
 
-    <div id="alreadyScreen" class="screen state-screen">
-      <div class="state-icon">✓</div>
-      <div class="state-title">이미 참여해주셨어요</div>
-      <div class="state-desc">소중한 참여 감사합니다.<br>7층 데스크에서 리워드를 확인해주세요.</div>
+    <div id="alreadyScreen" class="screen">
+      <div class="state"><div class="icon">✓</div><div class="state-title">이미 참여해주셨어요</div><div class="state-desc">소중한 참여 감사합니다.<br>7층 데스크에서 리워드를 확인해주세요.</div>
+        <a class="btn light" href="https://gran-seoul-fitness.github.io/gran-seoul-12/">마지막 건강챌린지 하러 가기 →</a></div>
     </div>
 
     <div id="formScreen" class="screen active">
-      <div class="room-hero">
-        <img class="base" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/room1.webp" alt="벽난로 앞 안락의자에 앉은 산타와 바닥에 놓인 초코칩 쿠키들">
-        <img class="arm-layer" id="santaArm" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/s1_L_rest.webp" alt="">
-        <img class="arm-layer-r" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/s1_R_rest.webp" alt="">
-        <div class="glasses-layer" id="santaGlasses"><img src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/glasses.webp" alt=""></div>
-        <a class="challenge-chip" href="https://gran-seoul-fitness.github.io/gran-seoul-12/">마지막 건강챌린지<br>하러 가기 →</a>
-        <div class="talk">
-          <div class="who">산타</div>
-          <p>무릎에 관한 퀴즈를 낼 테니, 한 번 맞춰보게!<br>무릎뼈 아래 힘줄 뒤, 신경이 아주 많이 분포되어<br>무릎의 쿠션 역할을 하는 것은?</p>
-        </div>
-      </div>
+      <p class="talk">“무릎에 관한 퀴즈를 낼 테니, 한 번 맞춰보게!”</p>
+      <div class="q-label">QUIZ</div>
+      <div class="question">무릎뼈 아래 힘줄 뒤, 신경이 아주 많이 분포되어 무릎의 쿠션 역할을 하는 것은?</div>
 
       <form id="quizForm" novalidate>
-        <div class="field-row">
-          <div class="field">
-            <label>성함</label>
-            <input type="text" id="nameInput" placeholder="이름을 입력해주세요" required>
-          </div>
-          <div class="field">
-            <label>입주사</label>
-            <select id="companyInput" required>
-              <option value="" disabled selected>선택해주세요</option>
-            </select>
-          </div>
+        <div class="choice-list" id="choiceList" role="radiogroup" aria-label="정답 고르기">
+          <button type="button" class="choice-btn" data-choice="1" role="radio"><span class="n">1</span>반월상연골</button>
+          <button type="button" class="choice-btn" data-choice="2" role="radio"><span class="n">2</span>장경인대</button>
+          <button type="button" class="choice-btn" data-choice="3" role="radio"><span class="n">3</span>십자인대</button>
+          <button type="button" class="choice-btn" data-choice="4" role="radio"><span class="n">4</span>지방체</button>
+          <button type="button" class="choice-btn" data-choice="5" role="radio"><span class="n">5</span>근육 (반막양근, 슬와근)</button>
         </div>
-        <div class="field">
-          <label>정답을 선택해주세요</label>
-          <div class="choice-list" id="choiceList">
-            <button type="button" class="choice-btn" data-choice="1"><span class="c-ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8.5 3.5a9 9 0 100 17 7 7 0 010-17z"/></svg></span><span class="c-tx">반월상연골</span></button>
-            <button type="button" class="choice-btn" data-choice="2"><span class="c-ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="9" y="2" width="6" height="20" rx="3"/></svg></span><span class="c-tx">장경인대</span></button>
-            <button type="button" class="choice-btn" data-choice="3"><span class="c-ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></span><span class="c-tx">십자인대</span></button>
-            <button type="button" class="choice-btn" data-choice="4"><span class="c-ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="13" rx="8.5" ry="6.5"/></svg></span><span class="c-tx">지방체</span></button>
-            <button type="button" class="choice-btn" data-choice="5"><span class="c-ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 16c0-6.5 4.2-12 10.5-12 4 0 6.5 2.8 6.5 6 0 5.8-5 10-11 10-3 0-6-1.4-6-4z"/></svg></span><span class="c-tx">근육 (반막양근, 슬와근)</span></button>
-          </div>
+        <div class="field-row">
+          <div><label for="nameInput">성함</label><input type="text" id="nameInput" placeholder="이름" required autocomplete="name"></div>
+          <div><label for="companyInput">입주사</label><select id="companyInput" required><option value="" disabled selected>선택</option></select></div>
         </div>
         <button type="submit" class="btn" id="submitBtn">정답 제출하기</button>
-        <div class="toast" id="wrongToast"></div>
+        <p class="note">* 그랑서울 피트니스 멤버십 회원만 참여 가능합니다.</p>
       </form>
     </div>
 
-    <div id="successScreen" class="screen success-screen has-hero">
-      <div class="room-hero">
-        <img class="base" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/building.webp" alt="그랑서울 피트니스 간판이 걸린 산타의 집 외관, 눈 쌓인 지붕과 따뜻하게 불이 켜진 창문들">
-      </div>
-      <div class="success-scene">
-        <img class="sc-gift" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/gift.webp" alt="">
-        <div class="trophy-wrap">
-          <img src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/ic_trophy.webp" alt="트로피">
-        </div>
-        <img class="sc-cookie" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/choco1.webp" alt="">
-        <span class="sparkle sp1">✦</span>
-        <span class="sparkle sp2">✦</span>
-        <span class="sparkle sp3">✦</span>
-        <span class="sparkle sp4">✦</span>
-      </div>
-      <div class="success-title">정답이라네!</div>
-      <div class="success-desc">7층 데스크에 방문하시어<br>참여를 확인받아 주세요.</div>
-      <div class="reward-box">
-        <div class="reward-main">리워드는 참여 확인 후<br>순차적으로 지급 예정입니다.</div>
-        <div class="reward-location">참여해주셔서 감사합니다!</div>
+    <div id="successScreen" class="screen">
+      <div class="state">
+        <img src="https://gran-seoul-fitness.github.io/gran-seoul-12/assets/ic_trophy.webp" alt="트로피">
+        <div class="state-title">정답이라네!</div>
+        <div class="state-desc">7층 데스크에 방문하시어 참여를 확인받아 주세요.</div>
+        <div class="reward">리워드는 참여 확인 후<br>순차적으로 지급 예정입니다.<br>참여해주셔서 감사합니다!</div>
+        <a class="btn light" href="https://gran-seoul-fitness.github.io/gran-seoul-12/">마지막 건강챌린지 하러 가기 →</a>
       </div>
     </div>
 
   </div>
-
+  <div class="toast" id="wrongToast" role="status" aria-live="polite"></div>
   <div class="footer-note">그랑서울 피트니스 × 12월 파이널 챌린지</div>
 </div>
 
 <script>
-  // 산타의 집 장면: 안경을 밀어 올리는 팔 제스처를 계속 반복 (레퍼런스 사이트의 pushUp() 동작을 그대로 재사용)
-  (function(){
-    const armEl = document.getElementById('santaArm');
-    const glassesEl = document.getElementById('santaGlasses');
-    if (!armEl || !glassesEl) return;
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const BASE = 'https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/';
-    function wait(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
-    function playArm(seq, ms){
-      return seq.reduce(function(p, n){
-        return p.then(function(){ armEl.src = BASE + 's1_L_' + n + '.webp'; return wait(ms); });
-      }, Promise.resolve());
-    }
-    function glassesY(v, d){
-      glassesEl.style.transition = 'transform ' + d + 'ms ease-out';
-      glassesEl.style.transform = 'translateY(' + v + '%)';
-      return wait(d);
-    }
-    async function pushUpLoop(){
-      while (true){
-        await wait(1800);
-        await glassesY(14, 260);
-        await playArm(['p35','p70','p100'], 95);
-        await glassesY(-6, 180);
-        await wait(220);
-        await playArm(['p70','p35','rest'], 95);
-        await glassesY(0, 300);
-      }
-    }
-    pushUpLoop();
-  })();
-
   // Wellness Letter 스프레드시트용 Apps Script 웹앱 URL (궁금한 내용 폼과 동일한 백엔드를 재사용, action 값으로 구분됨)
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywp0lF9kWDiSI0GcfiqFS5EOQ0R8nXZ76mVnvSKnTPcQTEWtQDO0lAEdbKbbAyNFl7bQ/exec";
 
@@ -452,14 +184,14 @@
     const btn = e.target.closest('.choice-btn');
     if (!btn) return;
     document.querySelectorAll('.choice-btn').forEach(function(el){ el.classList.remove('selected'); });
-    btn.classList.add('selected');
+    btn.classList.add('selected');document.querySelectorAll('.choice-btn').forEach(function(el){ el.setAttribute('aria-checked', el===btn?'true':'false'); });
     selectedChoice = btn.dataset.choice;
   });
 
   function showScreen(id){
     document.querySelectorAll('.screen').forEach(function(el){ el.classList.remove('active'); });
     document.getElementById(id).classList.add('active');
-    document.querySelector('.app').classList.toggle('night', id === 'successScreen' || id === 'notStartedScreen');
+    
   }
 
   (function init(){
@@ -474,6 +206,12 @@
     const name = document.getElementById('nameInput').value.trim();
     const company = document.getElementById('companyInput').value;
     const toast = document.getElementById('wrongToast');
+    if (!name){
+      toast.textContent = '성함을 입력해주세요!';
+      toast.classList.add('show');
+      setTimeout(function(){ toast.classList.remove('show'); }, 2200);
+      return;
+    }
     if (!company){
       toast.textContent = '입주사를 선택해주세요!';
       toast.classList.add('show');
@@ -555,6 +293,5 @@
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) tick();
   })();
 </script>
-
 </body>
 </html>
