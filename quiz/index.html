@@ -63,6 +63,9 @@
   .footer-note{margin-top:14px;font-size:11.5px;color:rgba(255,255,255,.7)}
   @media (prefers-reduced-motion:reduce){.screen.active{animation:none}}
 
+  .ask{margin-top:18px;padding:14px 14px 4px;border-top:1px solid rgba(255,255,255,.25);font-size:14px;line-height:1.65;color:#fff;word-break:keep-all}
+  .ask b{display:block;font-family:var(--display);font-size:15px;color:var(--glow);margin-bottom:4px}
+  #successScreen.active .ask{animation:rise .5s ease .6s both}
   /* ---- 모션 ---- */
   .santa img{animation:santaNod 3.6s ease-in-out infinite;transform-origin:50% 90%}
   @keyframes santaNod{0%,100%{transform:rotate(0) translateY(0)}20%{transform:rotate(-6deg) translateY(-1px)}40%{transform:rotate(0) translateY(0)}55%{transform:rotate(4deg) translateY(-2px)}70%{transform:rotate(0)}}
@@ -89,7 +92,7 @@
   @keyframes trophyFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
   #successScreen.active .state-title{animation:rise .5s ease .35s both}
   #successScreen.active .state-desc,#successScreen.active .reward{animation:rise .5s ease .5s both}
-  #successScreen.active .btn{animation:rise .5s ease .65s both}
+  #successScreen.active .btn{animation:rise .5s ease .75s both}
   .confetti{position:fixed;top:-12px;width:8px;height:12px;border-radius:2px;z-index:8;pointer-events:none;animation:fall linear forwards}
   @keyframes fall{to{transform:translate(var(--dx),110vh) rotate(var(--r))}}
   @media (prefers-reduced-motion:reduce){.santa img,.glass,#formScreen.active *,.choice-btn.selected,.choice-btn.selected .n,.btn::after,#notStartedScreen.active .state img,#successScreen.active *{animation:none!important}.confetti{display:none}}
@@ -156,6 +159,7 @@
         <div class="state-title">정답이라네!</div>
         <div class="state-desc">7층 데스크에 방문하시어 참여를 확인받아 주세요.</div>
         <div class="reward">리워드는 <b>12월 15일 이후</b>부터<br>7층 데스크에서 받으실 수 있어요.<br>참여해주셔서 감사합니다!</div>
+        <div class="ask"><b>그런데 말일세…</b>자네, 올해 마지막 12월을<br>즐겁고 건강하게 보내고 싶지 않은가?<br>그렇다면 이 산타 좀 도와주겠나? 허허!</div>
         <a class="btn light" href="https://gran-seoul-fitness.github.io/gran-seoul-12/">산타의 다이어트 도와주러 가기 →</a>
       </div>
     </div>
