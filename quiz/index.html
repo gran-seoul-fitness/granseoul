@@ -49,6 +49,8 @@
   .btn{display:block;width:100%;margin-top:16px;height:52px;border-radius:999px;border:1.5px solid rgba(255,255,255,.8);
     background:linear-gradient(180deg,#6C8DE6,#3F63C9);color:#fff;font:inherit;font-size:16px;font-weight:700;cursor:pointer;
     box-shadow:0 10px 22px rgba(20,40,120,.35),inset 0 2px 1px rgba(255,255,255,.55),inset 0 -3px 6px rgba(10,30,100,.25);text-align:center;text-decoration:none;line-height:49px}
+  .state img.wink{width:150px;margin:0 auto 2px;-webkit-mask-image:linear-gradient(180deg,#000 72%,transparent);mask-image:linear-gradient(180deg,#000 72%,transparent)}
+  #alreadyScreen.active .state img.wink{animation:trophyIn .6s cubic-bezier(.2,1.4,.4,1) both,santaNod 3.6s ease-in-out .6s infinite;transform-origin:50% 90%}
   .btn.light{background:linear-gradient(180deg,#fff,#E2EBFA);color:var(--navy)}
   .note{margin-top:10px;text-align:center;font-size:11.5px;color:rgba(255,255,255,.75)}
   .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:9;padding:11px 18px;border-radius:99px;background:rgba(15,25,60,.9);color:#fff;font-size:14px;transition:.25s;white-space:nowrap}
@@ -69,6 +71,8 @@
   .state-desc,.reward,.ask,.talk,.note,.question{word-break:keep-all;text-wrap:pretty}
   .state-desc .sub{display:inline-block;margin-top:6px;font-size:12.5px;color:rgba(255,255,255,.75)}
   @media (max-width:350px){.ask,.state-desc,.reward{font-size:13px}.question{font-size:15.5px}}
+  .state img.trophy{width:230px;margin:0 auto -4px}
+  .btn.light{font-size:14.5px;height:48px;line-height:45px;letter-spacing:-.01em}
   /* ---- 모션 ---- */
   .santa img{animation:santaNod 3.6s ease-in-out infinite;transform-origin:50% 90%}
   @keyframes santaNod{0%,100%{transform:rotate(0) translateY(0)}20%{transform:rotate(-6deg) translateY(-1px)}40%{transform:rotate(0) translateY(0)}55%{transform:rotate(4deg) translateY(-2px)}70%{transform:rotate(0)}}
@@ -130,7 +134,7 @@
     </div>
 
     <div id="alreadyScreen" class="screen">
-      <div class="state"><div class="icon">✓</div><div class="state-title">이미 참여해주셨어요</div><div class="state-desc">소중한 참여 감사합니다.<br>리워드는 <b>12월 15일 이후</b>부터<br>7층 데스크에서 받으실 수 있어요.</div>
+      <div class="state"><img class="wink" src="santa_wink.webp" alt="윙크하는 산타"><div class="state-title">이미 참여해주셨어요</div><div class="state-desc">소중한 참여 감사합니다.<br>리워드는 <b>12월 15일 이후</b>부터<br>7층 데스크에서 받으실 수 있어요.</div>
         <div class="ask"><b>허허, 자네 다시 왔구먼!</b>혹시 마음이 바뀌었나?<br>아직 늦지 않았다네.<br>이 산타의 다이어트, 같이 해 주겠나?</div>
         <a class="btn light" href="https://gran-seoul-fitness.github.io/gran-seoul-12/">산타의 다이어트 도와주러 가기 →</a></div>
     </div>
@@ -159,7 +163,7 @@
 
     <div id="successScreen" class="screen">
       <div class="state">
-        <img src="https://gran-seoul-fitness.github.io/gran-seoul-12/assets/ic_trophy.webp" alt="트로피">
+        <img class="trophy" src="trophy_xmas.webp" alt="트리와 선물 상자 사이의 금색 트로피">
         <div class="state-title">정답이라네!</div>
         <div class="state-desc">7층 데스크에 방문하시어<br>참여를 확인받아 주세요.</div>
         <div class="reward">리워드는 <b>12월 15일 이후</b>부터<br>7층 데스크에서 받으실 수 있어요.<br>참여해주셔서 감사합니다!</div>
@@ -242,9 +246,10 @@
   const DEMO = (function(){ const m = location.search.match(/[?&]demo(?:=([a-z]+))?/); return m ? (m[1] || 'form') : null; })();
   if (DEMO){
     const bar = document.createElement('div');
-    bar.style.cssText = 'position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:20;padding:6px 14px;border-radius:99px;background:rgba(15,25,60,.85);color:#FFD98A;font-size:12px;font-weight:600;white-space:nowrap';
+    bar.style.cssText = 'position:fixed;bottom:12px;left:50%;transform:translateX(-50%);z-index:20;padding:6px 14px;border-radius:99px;background:rgba(15,25,60,.85);color:#FFD98A;font-size:12px;font-weight:600;white-space:nowrap';
     bar.textContent = '데모 화면 · 기록이 남지 않아요';
     document.body.appendChild(bar);
+    document.querySelector('.app').style.paddingBottom='64px';
   }
 
   (function init(){
