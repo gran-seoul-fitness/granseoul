@@ -80,16 +80,16 @@
         <img src="https://gran-seoul-fitness.github.io/gran-seoul-12/assets/gift.webp" alt="">
         <div class="badge">12.01 OPEN</div>
         <div class="state-title">곧 찾아올게요</div>
-        <div class="state-desc">12월 무릎 지식 퀴즈는 12월 1일에 시작한다네.<br>조금만 기다려 주게!</div>
+        <div class="state-desc">12월 무릎 지식 퀴즈는 12월 1일에 시작한다네.<br>(참여 기간 12.1 ~ 12.15)<br>조금만 기다려 주게!</div>
       </div>
     </div>
 
     <div id="closedScreen" class="screen">
-      <div class="state"><div class="icon">❄️</div><div class="state-title">퀴즈가 마감되었습니다</div><div class="state-desc">참여해주신 모든 분들께 감사드립니다.</div></div>
+      <div class="state"><div class="icon">❄️</div><div class="state-title">퀴즈가 마감되었습니다</div><div class="state-desc">12월 15일에 퀴즈가 마감되었어요.<br>참여해주신 분들은<br>7층 데스크에서 리워드를 받아 가세요.</div></div>
     </div>
 
     <div id="alreadyScreen" class="screen">
-      <div class="state"><div class="icon">✓</div><div class="state-title">이미 참여해주셨어요</div><div class="state-desc">소중한 참여 감사합니다.<br>7층 데스크에서 리워드를 확인해주세요.</div>
+      <div class="state"><div class="icon">✓</div><div class="state-title">이미 참여해주셨어요</div><div class="state-desc">소중한 참여 감사합니다.<br>리워드는 <b>12월 15일 이후</b>부터 7층 데스크에서 받으실 수 있어요.</div>
         <a class="btn light" href="https://gran-seoul-fitness.github.io/gran-seoul-12/">마지막 건강챌린지 하러 가기 →</a></div>
     </div>
 
@@ -111,7 +111,7 @@
           <div><label for="companyInput">입주사</label><select id="companyInput" required><option value="" disabled selected>선택</option></select></div>
         </div>
         <button type="submit" class="btn" id="submitBtn">정답 제출하기</button>
-        <p class="note">* 그랑서울 피트니스 멤버십 회원만 참여 가능합니다.</p>
+        <p class="note">참여 기간 12.1(화) ~ 12.15(화) · 리워드는 12.15 이후 수령<br>* 그랑서울 피트니스 멤버십 회원만 참여 가능합니다.</p>
       </form>
     </div>
 
@@ -120,7 +120,7 @@
         <img src="https://gran-seoul-fitness.github.io/gran-seoul-12/assets/ic_trophy.webp" alt="트로피">
         <div class="state-title">정답이라네!</div>
         <div class="state-desc">7층 데스크에 방문하시어 참여를 확인받아 주세요.</div>
-        <div class="reward">리워드는 참여 확인 후<br>순차적으로 지급 예정입니다.<br>참여해주셔서 감사합니다!</div>
+        <div class="reward">리워드는 <b>12월 15일 이후</b>부터<br>7층 데스크에서 받으실 수 있어요.<br>참여해주셔서 감사합니다!</div>
         <a class="btn light" href="https://gran-seoul-fitness.github.io/gran-seoul-12/">마지막 건강챌린지 하러 가기 →</a>
       </div>
     </div>
@@ -142,7 +142,7 @@
   const QUIZ_START = '2026-12-01';
 
   // 이 날짜까지 참여 가능, 다음날부터 "참여기간 종료" 화면으로 전환됩니다.
-  const QUIZ_DEADLINE = '2099-12-31';
+  const QUIZ_DEADLINE = '2026-12-15';
 
   const CORRECT_CHOICE = '4'; // 지방체(지방패드) — 슬개건 아래, 신경 분포가 많은 무릎 쿠션 조직
   let selectedChoice = null;
