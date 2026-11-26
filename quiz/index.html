@@ -23,6 +23,10 @@
   .head{display:flex;align-items:center;gap:12px}
   .santa{flex:none;width:68px;height:68px;border-radius:50%;overflow:hidden;background:rgba(255,255,255,.25);border:2px solid rgba(255,255,255,.7)}
   .santa img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+  /* 모션: 산타가 고개를 갸웃갸웃 */
+  .santa img{transform-origin:50% 90%;animation:santaTilt 3.2s ease-in-out infinite}
+  @keyframes santaTilt{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg) translateY(-2px)}}
+  @media (prefers-reduced-motion:reduce){.santa img{animation:none}}
   .eyebrow{font-size:10.5px;letter-spacing:.18em;color:rgba(255,255,255,.75)}
   h1{font-family:var(--display);font-weight:700;font-size:23px;line-height:1.25;letter-spacing:-.01em}
   h1 small{display:inline-block;font-family:var(--body);font-size:11px;font-weight:600;padding:2px 8px;margin-left:6px;border-radius:99px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);vertical-align:middle;letter-spacing:0}
@@ -58,6 +62,37 @@
   .reward{word-break:keep-all;margin-top:14px;padding:13px 14px;border-radius:16px;border:1.5px dashed rgba(255,255,255,.55);background:rgba(255,255,255,.1);font-size:13.5px;line-height:1.6}
   .footer-note{margin-top:14px;font-size:11.5px;color:rgba(255,255,255,.7)}
   @media (prefers-reduced-motion:reduce){.screen.active{animation:none}}
+
+  /* ---- 모션 ---- */
+  .santa img{animation:santaNod 3.6s ease-in-out infinite;transform-origin:50% 90%}
+  @keyframes santaNod{0%,100%{transform:rotate(0) translateY(0)}20%{transform:rotate(-6deg) translateY(-1px)}40%{transform:rotate(0) translateY(0)}55%{transform:rotate(4deg) translateY(-2px)}70%{transform:rotate(0)}}
+  .glass{animation:cardIn .6s cubic-bezier(.2,.9,.3,1.2) both}
+  @keyframes cardIn{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
+  #formScreen.active .talk,#formScreen.active .q-label,#formScreen.active .question,#formScreen.active .choice-btn,#formScreen.active .field-row,#formScreen.active .btn{animation:rise .5s ease both}
+  #formScreen.active .q-label{animation-delay:.08s}#formScreen.active .question{animation-delay:.14s}
+  #formScreen.active .choice-btn:nth-child(1){animation-delay:.22s}#formScreen.active .choice-btn:nth-child(2){animation-delay:.27s}#formScreen.active .choice-btn:nth-child(3){animation-delay:.32s}#formScreen.active .choice-btn:nth-child(4){animation-delay:.37s}#formScreen.active .choice-btn:nth-child(5){animation-delay:.42s}
+  #formScreen.active .field-row{animation-delay:.48s}#formScreen.active .btn{animation-delay:.54s}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .choice-btn.selected{animation:pick .32s ease}
+  @keyframes pick{0%{transform:scale(1)}40%{transform:scale(1.03)}100%{transform:scale(1)}}
+  .choice-btn.selected .n{animation:pop .35s ease}
+  @keyframes pop{0%{transform:scale(.6)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+  .shake{animation:shake .42s ease}
+  @keyframes shake{0%,100%{transform:none}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+  .btn{position:relative;overflow:hidden}
+  .btn::after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-18deg);animation:shine 3.4s ease-in-out infinite}
+  @keyframes shine{0%,60%{left:-60%}100%{left:130%}}
+  #notStartedScreen.active .state img{animation:giftBob 2.6s ease-in-out infinite;transform-origin:50% 100%}
+  @keyframes giftBob{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-8px) rotate(-3deg)}50%{transform:translateY(0) rotate(0)}75%{transform:translateY(-5px) rotate(3deg)}}
+  #successScreen.active .state img{animation:trophyIn .7s cubic-bezier(.2,1.4,.4,1) both,trophyFloat 3s ease-in-out .7s infinite}
+  @keyframes trophyIn{from{opacity:0;transform:scale(.3) translateY(30px)}to{opacity:1;transform:none}}
+  @keyframes trophyFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  #successScreen.active .state-title{animation:rise .5s ease .35s both}
+  #successScreen.active .state-desc,#successScreen.active .reward{animation:rise .5s ease .5s both}
+  #successScreen.active .btn{animation:rise .5s ease .65s both}
+  .confetti{position:fixed;top:-12px;width:8px;height:12px;border-radius:2px;z-index:8;pointer-events:none;animation:fall linear forwards}
+  @keyframes fall{to{transform:translate(var(--dx),110vh) rotate(var(--r))}}
+  @media (prefers-reduced-motion:reduce){.santa img,.glass,#formScreen.active *,.choice-btn.selected,.choice-btn.selected .n,.btn::after,#notStartedScreen.active .state img,#successScreen.active *{animation:none!important}.confetti{display:none}}
 </style>
 </head>
 <body>
@@ -226,6 +261,14 @@
     }
     if (selectedChoice === CORRECT_CHOICE){
       showScreen('successScreen');
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches){
+        const cols=['#FFD98A','#F2963F','#FFFFFF','#E85A5A','#9FD3FF'];
+        for (let i=0;i<36;i++){ const c=document.createElement('i'); c.className='confetti';
+          c.style.left=(Math.random()*100)+'vw'; c.style.background=cols[i%cols.length];
+          c.style.setProperty('--dx',(Math.random()*120-60)+'px'); c.style.setProperty('--r',(Math.random()*720-360)+'deg');
+          c.style.animationDuration=(1.8+Math.random()*1.6)+'s'; c.style.animationDelay=(Math.random()*.5)+'s';
+          document.body.appendChild(c); setTimeout(function(){ c.remove(); },4200); }
+      }
       markParticipated();
 
       // 정답을 맞힌 참여 기록을 조용히 시트에 남김 (사용자는 이 과정을 볼 필요 없음)
@@ -246,6 +289,7 @@
         // 기록 실패해도 사용자 화면에는 영향 없음 (정답 화면은 이미 보여줌)
       });
     } else {
+      const sel=document.querySelector('.choice-btn.selected'); if(sel){ sel.classList.remove('shake'); void sel.offsetWidth; sel.classList.add('shake'); }
       toast.textContent = '아쉬워요, 다시 한 번 생각해보세요!';
       toast.classList.add('show');
       setTimeout(function(){ toast.classList.remove('show'); }, 2200);
