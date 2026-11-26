@@ -183,6 +183,8 @@
     content:'';display:block;margin:0 -22px 24px;height:56px;
     background:linear-gradient(to bottom,#2a160b,rgba(93,120,195,1));
   }
+  .has-hero::before{display:none;}
+  .has-hero .room-hero{margin-bottom:24px;}
   .success-scene{position:relative;width:230px;height:175px;margin:0 auto 6px;}
   .trophy-wrap{position:absolute;left:50%;top:0;width:118px;margin:0;transform:translateX(-50%);z-index:2;}
   .trophy-wrap img{
@@ -271,7 +273,10 @@
       <p>겨울철 무릎 건강, 얼마나 알고 계신가요?</p>
     </div>
 
-    <div id="notStartedScreen" class="screen state-screen">
+    <div id="notStartedScreen" class="screen state-screen has-hero">
+      <div class="room-hero">
+        <img class="base" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/building.webp" alt="그랑서울 피트니스 간판이 걸린 산타의 집 외관, 눈 쌓인 지붕과 따뜻하게 불이 켜진 창문들">
+      </div>
       <div class="wait-scene">
         <img class="wait-gift" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/gift.webp" alt="">
         <span class="sparkle sp1">✦</span>
@@ -336,7 +341,10 @@
       </form>
     </div>
 
-    <div id="successScreen" class="screen success-screen">
+    <div id="successScreen" class="screen success-screen has-hero">
+      <div class="room-hero">
+        <img class="base" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/building.webp" alt="그랑서울 피트니스 간판이 걸린 산타의 집 외관, 눈 쌓인 지붕과 따뜻하게 불이 켜진 창문들">
+      </div>
       <div class="success-scene">
         <img class="sc-gift" src="https://raw.githubusercontent.com/gran-seoul-fitness/gran-seoul-12/main/assets/gift.webp" alt="">
         <div class="trophy-wrap">
